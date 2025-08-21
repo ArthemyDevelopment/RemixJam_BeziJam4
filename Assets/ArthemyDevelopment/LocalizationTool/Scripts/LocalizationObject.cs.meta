@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3ec234e199a763b43ae635ef329ef7ef
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191021
+  packageName: Simple&Easy Localization Tool
+  packageVersion: 1.4
+  assetPath: Assets/ArthemyDevelopment/LocalizationTool/Scripts/LocalizationObject.cs
+  uploadId: 771115

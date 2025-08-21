@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 23b521a3eb2d7d1408b042ea4c2601b1
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191021
+  packageName: Simple&Easy Localization Tool
+  packageVersion: 1.4
+  assetPath: Assets/ArthemyDevelopment/BetterStreamingAssets/Editor/BetterStreamingAssets-Editor.asmdef
+  uploadId: 771115

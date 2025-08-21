@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 4f2571d76db204a43ba10e63a1d344f5
+timeCreated: 1506207467
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191021
+  packageName: Simple&Easy Localization Tool
+  packageVersion: 1.4
+  assetPath: Assets/ArthemyDevelopment/BetterStreamingAssets/BSA_ZipArchive.cs
+  uploadId: 771115

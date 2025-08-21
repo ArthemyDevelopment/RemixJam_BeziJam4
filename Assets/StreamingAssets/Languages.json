@@ -1,0 +1,76 @@
+{
+    "LI_Items": [
+        {
+            "key": "Language",
+            "value": [
+                "English",
+                "Spanish",
+                "Italian",
+                "New Language"
+            ]
+        },
+        {
+            "key": "Menu/Title",
+            "value": [
+                "Example Scene",
+                "Escena de ejemplo",
+                "Scena di esempio",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Img",
+            "value": [
+                "ArthemyDevelopment/ExampleImage_EN",
+                "ArthemyDevelopment/ExampleImage_ES",
+                "ArthemyDevelopment/ExampleImage_IT",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Start",
+            "value": [
+                "Start",
+                "Comenzar",
+                "Inizio",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Continue",
+            "value": [
+                "Continue",
+                "Continuar",
+                "Continua",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Options",
+            "value": [
+                "Options",
+                "Opciones",
+                "Opzioni",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Credits",
+            "value": [
+                "Credits",
+                "Creditos",
+                "Titoli di coda",
+                ""
+            ]
+        },
+        {
+            "key": "Menu/Copyright",
+            "value": [
+                "Copyright ArthemyDevelopment 2021",
+                "Copyright ArthemyDevelopment 2021",
+                "Copyright ArthemyDevelopment 2021",
+                ""
+            ]
+        }
+    ]
+}
