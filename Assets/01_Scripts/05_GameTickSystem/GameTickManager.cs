@@ -11,10 +11,17 @@ public class GameTickManager : SingletonManager<GameTickManager>
 
     public GameTick OnGameTick;
 
+    private Coroutine gameTickCoroutine;
+    
 
     private void Start()
     {
-        StartCoroutine(StartGameTicks());
+        gameTickCoroutine=StartCoroutine(StartGameTicks());
+    }
+
+    public void StopGameTicks()
+    {
+        StopCoroutine(gameTickCoroutine);
     }
 
 

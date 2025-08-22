@@ -2,6 +2,7 @@ using System;
 using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PieceController : MonoBehaviour
 {
@@ -12,13 +13,17 @@ public class PieceController : MonoBehaviour
     [FoldoutGroup("PieceData")]public Vector2Int Position;
     [FoldoutGroup("PieceData")]public int RotationIndex;
     [FoldoutGroup("PieceData")][SerializeField] private bool IsSoftDrop = false;
+    [FoldoutGroup("PieceData")] [SerializeField] private int StartTicksToStep = 20;
 
 
     private Vector2Int NewPosition;
     private bool rotationQueued;
+    private int curTicksToStep;
+    private int curTick;
 
     private void Start()
     {
+        curTicksToStep = StartTicksToStep;
         TetrisInputHandler.current.OnMove+=MovePiece;
         TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
         TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
@@ -50,6 +55,11 @@ public class PieceController : MonoBehaviour
 
     }
 
+    public void ChangeSpeed()
+    {
+        curTicksToStep--;
+    }
+
 
     private void UpdateTicks()
     {
@@ -61,7 +71,7 @@ public class PieceController : MonoBehaviour
             ApplyRotationMatrix(1);
         }
         SetNewPosition();
-        
+        CheckStepDown();
         Board.SetPiece(this);
     }
 
@@ -73,9 +83,13 @@ public class PieceController : MonoBehaviour
     {
         if (Board.IsValidPiecePosition(this, NewPosition))
         {
-            Position = NewPosition;
+            Position.y = NewPosition.y;
+            Position.x = GetWrapedXPosition(NewPosition.x);
         }
-        else NewPosition = Position;
+        else
+        {
+            NewPosition = Position;
+        } 
     }
     
 
@@ -109,17 +123,8 @@ public class PieceController : MonoBehaviour
     void RotatePiece()
     {
         int originalRotation = RotationIndex;
-        
         RotationIndex = ScriptsTools.WrapInt(RotationIndex + 1, 0, 4);
-
         rotationQueued = true;
-        /*// Revert the rotation if the wall kick tests fail
-        if (!TestWallKicks(rotationIndex, direction))
-        {
-            rotationIndex = originalRotation;
-            ApplyRotationMatrix(-direction);
-        }*/
-
     }
 
     private void ApplyRotationMatrix(int direction)
@@ -150,9 +155,56 @@ public class PieceController : MonoBehaviour
                     break;
             }
 
+            x = GetWrapedXPosition(x);
             Cells[i] = new Vector2Int(x, y);
         }
     }
+
+
+    int GetWrapedXPosition(int input)
+    {
+        return ScriptsTools.WrapInt(input, TetrisMapBoard.BOARD_X_BOUND_NEGATIVE, TetrisMapBoard.BOARD_X_BOUND_POSITIVE);
+    }
+
+    void CheckStepDown()
+    {
+        if (IsSoftDrop)
+        {
+            StepDownPiece();
+        }
+
+        curTick++;
+        if (curTick >= curTicksToStep)
+        {
+            StepDownPiece();
+        }
+
+    }
+
+    void StepDownPiece()
+    {
+        curTick = 0;
+        DropPiece();
+        if (Board.IsValidPiecePosition(this, NewPosition))
+        {
+            Position.y = NewPosition.y;
+            Position.x = GetWrapedXPosition(NewPosition.x);
+        }
+        else
+        {
+            LockPiece();
+        }
+    }
+
+    void LockPiece()
+    {
+        Board.SetPiece(this);
+        Board.ClearLines();
+        Board.SpawnPiece();
+    }
+    
+    
+    
     
     
 
