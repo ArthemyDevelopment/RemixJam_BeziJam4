@@ -10,6 +10,7 @@ public class GameTickManager : SingletonManager<GameTickManager>
     public delegate void GameTick();
 
     public GameTick OnGameTick;
+    public GameTick OnUiGameTick;
 
     private Coroutine gameTickCoroutine;
     
@@ -30,6 +31,7 @@ public class GameTickManager : SingletonManager<GameTickManager>
         while (GameisPlaying)
         {
             OnGameTick?.Invoke();
+            OnUiGameTick.Invoke();
             yield return ScriptsTools.GetWait(GameTickTime);
         }
     }

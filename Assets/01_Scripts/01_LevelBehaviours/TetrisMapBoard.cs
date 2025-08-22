@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
@@ -80,27 +81,27 @@ public class TetrisMapBoard : MonoBehaviour
 
             if (!boundToCheck.Contains(positionToCheck))
             {
-                Debug.Log("FAILED: Out of bounds");
+                //Debug.Log("FAILED: Out of bounds");
                 return false;
             }
 
 
             if (Tilemap.HasTile((Vector3Int)positionToCheck))
             {
-                Debug.Log("FAILED: Tile in position");
+                //Debug.Log("FAILED: Tile in position");
                 return false;
             }
             
 
         }
-        Debug.Log("SUCCESS: Valid position");
+        //Debug.Log("SUCCESS: Valid position");
         return true;
     }
 
+    
     public void ClearLines() 
     {
         RectInt bounds = Bounds;
-        int gridWidth = bounds.width;      
         int gridHeight = bounds.height; 
         
         Span<bool> fullLines = stackalloc bool[gridHeight];
@@ -121,20 +122,21 @@ public class TetrisMapBoard : MonoBehaviour
         DificultyManager.current.CheckDificultIncrease(linesCleared);
         
         int writeRow = bounds.yMin;
+        
+        
         for (int readRow = bounds.yMin; readRow < bounds.yMax; readRow++)
         {
             int relativeReadRow = readRow - bounds.yMin;
             
             if (!fullLines[relativeReadRow])
             {
-                if (writeRow != readRow) 
+                if (writeRow != readRow)
                 {
                     MoveRowBatch(readRow, writeRow);
                 }
                 writeRow++;
             }
         }
-        
         for (int row = writeRow; row < bounds.yMax; row++) 
         {
             ClearLine(row);

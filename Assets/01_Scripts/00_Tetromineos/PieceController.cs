@@ -16,6 +16,7 @@ public class PieceController : MonoBehaviour
     [FoldoutGroup("PieceData")] [SerializeField] private int StartTicksToStep = 20;
 
 
+    private bool IsPlayerInputLocked;
     private Vector2Int NewPosition;
     private bool rotationQueued;
     private int curTicksToStep;
@@ -23,7 +24,15 @@ public class PieceController : MonoBehaviour
 
     private void Start()
     {
-        curTicksToStep = StartTicksToStep;
+        if (DificultyManager.current != null)
+        {
+            curTicksToStep = DificultyManager.current.CurrentTicksToStep;
+        }
+        else
+        {
+            curTicksToStep = 20;
+        }
+        
         TetrisInputHandler.current.OnMove+=MovePiece;
         TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
         TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
@@ -57,7 +66,11 @@ public class PieceController : MonoBehaviour
 
     public void ChangeSpeed()
     {
-        curTicksToStep--;
+        if (DificultyManager.current != null)
+        {
+            curTicksToStep = DificultyManager.current.CurrentTicksToStep;
+            Debug.Log($"Piece speed updated to {curTicksToStep} ticks per step");
+        }
     }
 
 
@@ -65,14 +78,27 @@ public class PieceController : MonoBehaviour
     {
         Board.ClearPiece(this);
 
-        if (rotationQueued)
+        if (!IsPlayerInputLocked)
+        {
+            if (rotationQueued)
+            {
+                rotationQueued = false;
+                ApplyRotationMatrix(1);
+            }
+            SetNewPosition();
+        }
+        else
         {
             rotationQueued = false;
-            ApplyRotationMatrix(1);
+            NewPosition = Position;
         }
-        SetNewPosition();
         CheckStepDown();
         Board.SetPiece(this);
+    }
+
+    public void LockPlayerInput(bool state)
+    {
+        IsPlayerInputLocked = state;
     }
 
    
