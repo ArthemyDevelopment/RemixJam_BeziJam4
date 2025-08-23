@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
 using ArthemyDev.ScriptsTools;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GameTickManager : SingletonManager<GameTickManager>
 {
-    public bool GameisPlaying=true;
-    public float GameTickTime;
+    [BoxGroup("GameTicks Values")]public bool GameIsPlaying=true;
+    [BoxGroup("GameTicks Values")]public float GameTickTime;
     public delegate void GameTick();
-
-    public GameTick OnGameTick;
-    public GameTick OnUiGameTick;
+    [HideInInspector]public GameTick OnGameTick;
+    [HideInInspector]public GameTick OnUiGameTick;
 
     private Coroutine gameTickCoroutine;
     
@@ -22,16 +22,17 @@ public class GameTickManager : SingletonManager<GameTickManager>
 
     public void StopGameTicks()
     {
-        StopCoroutine(gameTickCoroutine);
+        GameIsPlaying = false;
+        if(gameTickCoroutine!=null)StopCoroutine(gameTickCoroutine);
     }
 
 
     IEnumerator StartGameTicks()
     {
-        while (GameisPlaying)
+        while (GameIsPlaying)
         {
             OnGameTick?.Invoke();
-            OnUiGameTick.Invoke();
+            OnUiGameTick?.Invoke();
             yield return ScriptsTools.GetWait(GameTickTime);
         }
     }

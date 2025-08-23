@@ -13,7 +13,7 @@ public class TetrisMapBoard : MonoBehaviour
     public const int BOARD_X_BOUND_POSITIVE= 5;
     
     [FoldoutGroup("References")]public Tilemap Tilemap;
-    [FoldoutGroup("References")]public PieceController curPiece;
+    [FoldoutGroup("References")]public PieceController pieceController;
     
     [FoldoutGroup("Values")]public Vector2Int SpawnPos;
     [FoldoutGroup("Values")]public Vector2Int MapBoardSize = new Vector2Int(10,20);
@@ -40,13 +40,20 @@ public class TetrisMapBoard : MonoBehaviour
         SpawnPiece();
     }
 
-    public void SpawnPiece()
+    public void SpawnPiece(Vector2Int? pos = null,TetrominoData ForcedPiece= new TetrominoData())
     {
-        _indexToSpawn = Random.Range(0, Tetrominoes.Length);
-        _pieceToSpawn = Tetrominoes[_indexToSpawn];
-        curPiece.Init(this, SpawnPos, _pieceToSpawn);
+
+        if (ForcedPiece.TetrominoType== Tetromino.Null)
+        {
+            _indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            _pieceToSpawn = Tetrominoes[_indexToSpawn];
+        }
+        else _pieceToSpawn = ForcedPiece;
         
-        if(IsValidPiecePosition(curPiece, SpawnPos)) SetPiece(curPiece);
+        if(pos==null)pieceController.Init(SpawnPos, _pieceToSpawn);
+        else pieceController.Init(pos.Value, _pieceToSpawn);
+        
+        if(IsValidPiecePosition(pieceController, SpawnPos)) SetPiece(pieceController);
         else GameOver();
     }
 
@@ -191,7 +198,7 @@ public class TetrisMapBoard : MonoBehaviour
 
     private void GameOver()
     {
-        GameTickManager.current.StopGameTicks();
+        GameOverManager.current.SetGameOver();
     }
     
     #if UNITY_EDITOR

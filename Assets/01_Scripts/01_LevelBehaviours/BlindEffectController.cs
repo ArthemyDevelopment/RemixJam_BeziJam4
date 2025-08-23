@@ -6,9 +6,9 @@ public class BlindEffectController : MonoBehaviour
 {
 
     [BoxGroup("Effect Settings"),SerializeField] private SpriteRenderer BlindEffectSprite;
-    [BoxGroup("Effect Settings"),SerializeField]private int StartingFade;
-    [BoxGroup("Effect Settings"),SerializeField] private int AmmountToReduce;
-    [BoxGroup("DEBUG"), ReadOnly]private int curAlpha;
+    [BoxGroup("Effect Settings"),SerializeField]private float StartingFade;
+    [BoxGroup("Effect Settings"),SerializeField] private float AmmountToReduce;
+    [BoxGroup("DEBUG"), ReadOnly]private float curAlpha;
 
     public void SetEffect(bool state)
     {
@@ -16,14 +16,14 @@ public class BlindEffectController : MonoBehaviour
         {
             case true:
                 GameTickManager.current.OnGameTick += IncreaseFade;
-                TetrisInputHandler.current.OnTBD += ReduceFade;
+                TetrisInputHandler.current.OnEffectAction += ReduceFade;
                 GameTickManager.current.OnUiGameTick += SetSpriteColor;
                 curAlpha = StartingFade;
                 SetSpriteColor();
                 break;
             case false:
                 GameTickManager.current.OnGameTick -= IncreaseFade;
-                TetrisInputHandler.current.OnTBD -= ReduceFade;
+                TetrisInputHandler.current.OnEffectAction -= ReduceFade;
                 GameTickManager.current.OnUiGameTick -= SetSpriteColor;
                 curAlpha = 0;
                 SetSpriteColor();
@@ -33,7 +33,7 @@ public class BlindEffectController : MonoBehaviour
 
     private void IncreaseFade()
     {
-        curAlpha += 1;
+        curAlpha += 0.01f;
     }
 
     private void ReduceFade()

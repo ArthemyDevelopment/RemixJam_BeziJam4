@@ -129,7 +129,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TBD"",
+                    ""name"": ""EffectAction"",
                     ""type"": ""Button"",
                     ""id"": ""b6befb7c-1ea1-4672-a73a-59f825e6f938"",
                     ""expectedControlType"": """",
@@ -322,7 +322,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TBD"",
+                    ""action"": ""EffectAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -333,7 +333,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TBD"",
+                    ""action"": ""EffectAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -344,7 +344,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TBD"",
+                    ""action"": ""EffectAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -367,7 +367,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -376,7 +376,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -723,11 +723,55 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""30aad4ae-a88a-4191-bc39-332e266be145"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""010350f2-0f6b-44a1-b53d-960e273ad6e6"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""82627dcc-3b13-4ba9-841d-e4b746d6553e"",
                     ""path"": ""*/{Cancel}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7b0cad7-f054-4780-8429-7606fa2ab9e3"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cc11ca2-e6b7-45b9-ab52-28fecca81557"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -936,7 +980,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player_SoftDrop = m_Player.FindAction("SoftDrop", throwIfNotFound: true);
         m_Player_HoldPiece = m_Player.FindAction("HoldPiece", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
-        m_Player_TBD = m_Player.FindAction("TBD", throwIfNotFound: true);
+        m_Player_EffectAction = m_Player.FindAction("EffectAction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1034,7 +1078,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SoftDrop;
     private readonly InputAction m_Player_HoldPiece;
     private readonly InputAction m_Player_Rotate;
-    private readonly InputAction m_Player_TBD;
+    private readonly InputAction m_Player_EffectAction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1063,9 +1107,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
         /// <summary>
-        /// Provides access to the underlying input action "Player/TBD".
+        /// Provides access to the underlying input action "Player/EffectAction".
         /// </summary>
-        public InputAction @TBD => m_Wrapper.m_Player_TBD;
+        public InputAction @EffectAction => m_Wrapper.m_Player_EffectAction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1104,9 +1148,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
-            @TBD.started += instance.OnTBD;
-            @TBD.performed += instance.OnTBD;
-            @TBD.canceled += instance.OnTBD;
+            @EffectAction.started += instance.OnEffectAction;
+            @EffectAction.performed += instance.OnEffectAction;
+            @EffectAction.canceled += instance.OnEffectAction;
         }
 
         /// <summary>
@@ -1130,9 +1174,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
-            @TBD.started -= instance.OnTBD;
-            @TBD.performed -= instance.OnTBD;
-            @TBD.canceled -= instance.OnTBD;
+            @EffectAction.started -= instance.OnEffectAction;
+            @EffectAction.performed -= instance.OnEffectAction;
+            @EffectAction.canceled -= instance.OnEffectAction;
         }
 
         /// <summary>
@@ -1462,12 +1506,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotate(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "TBD" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "EffectAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnTBD(InputAction.CallbackContext context);
+        void OnEffectAction(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

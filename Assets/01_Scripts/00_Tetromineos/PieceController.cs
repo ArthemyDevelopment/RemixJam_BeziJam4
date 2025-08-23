@@ -1,6 +1,7 @@
 using System;
 using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
+using Unity.AppUI.Redux;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -16,11 +17,12 @@ public class PieceController : MonoBehaviour
     [FoldoutGroup("PieceData")] [SerializeField] private int StartTicksToStep = 20;
 
 
-    private bool IsPlayerInputLocked;
-    private Vector2Int NewPosition;
-    private bool rotationQueued;
-    private int curTicksToStep;
-    private int curTick;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData StoredPiece;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private bool IsPlayerInputLocked;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private Vector2Int NewPosition;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private bool rotationQueued;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int curTicksToStep;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int curTick;
 
     private void Start()
     {
@@ -37,6 +39,7 @@ public class PieceController : MonoBehaviour
         TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
         TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
         TetrisInputHandler.current.OnRotate+=RotatePiece;
+        TetrisInputHandler.current.OnHoldPiece += HoldPiece;
         GameTickManager.current.OnGameTick += UpdateTicks;
     }
 
@@ -46,12 +49,12 @@ public class PieceController : MonoBehaviour
         TetrisInputHandler.current.OnInitSoftDrop-=InitSoftDrop;
         TetrisInputHandler.current.OnEndSoftDrop-=StopSoftDrop;
         TetrisInputHandler.current.OnRotate-=RotatePiece;
+        TetrisInputHandler.current.OnHoldPiece -= HoldPiece;
         GameTickManager.current.OnGameTick -= UpdateTicks;
     }
 
-    public void Init(TetrisMapBoard board, Vector2Int pos, TetrominoData data)
+    public void Init(Vector2Int pos, TetrominoData data)
     {
-        Board = board;
         Position = pos;
         Data = data;
         RotationIndex = 0;
@@ -99,11 +102,8 @@ public class PieceController : MonoBehaviour
     public void LockPlayerInput(bool state)
     {
         IsPlayerInputLocked = state;
+        IsSoftDrop = false;
     }
-
-   
-
-
 
     private void SetNewPosition()
     {
@@ -128,12 +128,14 @@ public class PieceController : MonoBehaviour
 
     private void InitSoftDrop()
     {
+        if (IsPlayerInputLocked) return;
         IsSoftDrop = true;
         DropPiece();
     }
 
     private void StopSoftDrop()
     {
+        if (IsPlayerInputLocked) return;
         IsSoftDrop = false;
     }
     
@@ -220,6 +222,27 @@ public class PieceController : MonoBehaviour
         {
             LockPiece();
         }
+    }
+
+
+    void HoldPiece()
+    {
+        if (IsPlayerInputLocked) return;
+        
+        Board.ClearPiece(this);
+        if (StoredPiece.TetrominoType == Tetromino.Null)
+        {
+            StoredPiece = Data;
+            Board.SpawnPiece(Position);
+        }
+        else
+        {
+            TetrominoData tempData = StoredPiece;
+            StoredPiece = Data;
+            Board.SpawnPiece(Position,tempData);
+        }
+        
+        //TODO:Set in UI the stored Piece
     }
 
     void LockPiece()

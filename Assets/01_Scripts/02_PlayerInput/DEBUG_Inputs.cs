@@ -14,7 +14,7 @@ public class DEBUG_Inputs : MonoBehaviour
         inputHandler.OnInitSoftDrop+=HandleInitSoftDrop;
         inputHandler.OnEndSoftDrop+=HandleEndSoftDrop;
         inputHandler.OnHoldPiece+=HandleHoldPiece;
-        inputHandler.OnTBD+=HandleCustomAction;
+        inputHandler.OnEffectAction+=HandleCustomAction;
     }
 
     private void OnDisable()
@@ -24,7 +24,7 @@ public class DEBUG_Inputs : MonoBehaviour
         inputHandler.OnInitSoftDrop-=HandleInitSoftDrop;
         inputHandler.OnEndSoftDrop-=HandleEndSoftDrop;
         inputHandler.OnHoldPiece-=HandleHoldPiece;
-        inputHandler.OnTBD-=HandleCustomAction;
+        inputHandler.OnEffectAction-=HandleCustomAction;
     }
 
     private void HandleMove(float direction)

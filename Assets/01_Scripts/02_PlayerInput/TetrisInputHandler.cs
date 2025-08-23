@@ -12,10 +12,10 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
     [FoldoutGroup("Repeat input values")][SerializeField] private float moveRepeatRate = 0.1f;
     
     private PlayerInputs inputActions;
-    [FoldoutGroup("DEBUG_DATA")][SerializeField]private float lastMoveInput;
-    [FoldoutGroup("DEBUG_DATA")][SerializeField]private float moveTimer;
-    [FoldoutGroup("DEBUG_DATA")][SerializeField]private bool isMoving;
-    [FoldoutGroup("DEBUG_DATA")][SerializeField]private bool isSoftDropping;
+    [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private float lastMoveInput;
+    [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private float moveTimer;
+    [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private bool isMoving;
+    [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private bool isSoftDropping;
 
 
     public delegate void InputButtonAction();
@@ -27,7 +27,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
     [HideInInspector]public InputButtonAction OnInitSoftDrop;
     [HideInInspector]public InputButtonAction OnEndSoftDrop;
     [HideInInspector]public InputButtonAction OnHoldPiece;
-    [HideInInspector]public InputButtonAction OnTBD;
+    [HideInInspector]public InputButtonAction OnEffectAction;
     protected override void Awake()
     {
         base.Awake();
@@ -43,7 +43,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         inputActions.Player.SoftDrop.canceled += OnSoftDropCanceled;
         inputActions.Player.HoldPiece.performed += OnHoldPiecePerformed;
         inputActions.Player.Rotate.performed += OnRotatePerformed;
-        inputActions.Player.TBD.performed += OnTBDPerformed;
+        inputActions.Player.EffectAction.performed += OnEffectActionPerformed;
     }
     
     private void OnDisable()
@@ -55,7 +55,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         inputActions.Player.SoftDrop.canceled -= OnSoftDropCanceled;
         inputActions.Player.HoldPiece.performed -= OnHoldPiecePerformed;
         inputActions.Player.Rotate.performed -= OnRotatePerformed;
-        inputActions.Player.TBD.performed -= OnTBDPerformed;
+        inputActions.Player.EffectAction.performed -= OnEffectActionPerformed;
     }
     
     private void Update()
@@ -134,9 +134,9 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         OnRotate?.Invoke();
     }
     
-    private void OnTBDPerformed(InputAction.CallbackContext context)
+    private void OnEffectActionPerformed(InputAction.CallbackContext context)
     {
-        OnTBD?.Invoke();
+        OnEffectAction?.Invoke();
     }
     
     public void SetInput(bool enabled)

@@ -53,7 +53,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     [SerializeField] private TilemapRenderer tilemapRenderer;
     
     [FoldoutGroup("Effect Configuration")]
-    [SerializeField] private Vector2Int baseStepsRange = new Vector2Int(3, 8);
+    [SerializeField] private Vector2Int ActiveEffectStepsRange = new Vector2Int(3, 8);
     
     [FoldoutGroup("Effect Configuration")]
     [SerializeField] private Material defaultMaterial;
@@ -62,20 +62,12 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true)]
     [SerializeField] private List<ChaosEffect> availableEffects = new List<ChaosEffect>();
     
-    [FoldoutGroup("DEBUG")]
-    [ReadOnly] [SerializeField] private ChaosEffect curEffect;
-    
-    [FoldoutGroup("DEBUG")]
-    [ReadOnly] [SerializeField] private int stepsUntilNextEffect;
-    
-    [FoldoutGroup("DEBUG")]
-    [ReadOnly] [SerializeField] private int currentEffectRemainingSteps;
-    
-    [FoldoutGroup("DEBUG")]
-    [ReadOnly] [SerializeField] private int buttonPressesRemaining;
-    
-    private bool isEffectActive = false;
-    private bool isSystemActive = true;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private ChaosEffect curEffect;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int stepsUntilNextEffect;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int currentEffectRemainingSteps;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int buttonPressesRemaining;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isEffectActive = false;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isSystemActive = true;
     
     
     private void Start()
@@ -87,9 +79,9 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void InitializeEffectSystem()
     {
         GameTickManager.current.OnGameTick += OnGameTick;
-        TetrisInputHandler.current.OnTBD += OnTBDPressed;
+        TetrisInputHandler.current.OnEffectAction += OnTBDPressed;
         
-        stepsUntilNextEffect = GetStepsInTicks(Random.Range(baseStepsRange.x, baseStepsRange.y + 1));
+        stepsUntilNextEffect = GetStepsInTicks(Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1));
         
         Debug.Log($"ChaosEffectsManager initialized. Next effect in {stepsUntilNextEffect} ticks.");
     }
@@ -97,7 +89,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void StopEffectSystem()
     {
         GameTickManager.current.OnGameTick -= OnGameTick;
-        TetrisInputHandler.current.OnTBD -= OnTBDPressed;
+        TetrisInputHandler.current.OnEffectAction -= OnTBDPressed;
         if(isEffectActive)EndCurrentEffect();
     }
     
@@ -132,6 +124,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             
             if (stepsUntilNextEffect <= 0)
             {
+                Debug.Log("Trigger effect");
                 TriggerRandomEffect();
             }
         }
@@ -159,19 +152,26 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             Debug.LogWarning("Invalid effect");
             return;
         }
-        
+
         switch (effect.Type)
         {
             case ChaosEffectType.Material:
-                if(effect.effectMaterial==null)
+                if (effect.effectMaterial == null)
+                {
                     Debug.LogWarning("Empty material. Invalid effect");
-                return; 
-                
+                    return;
+                }
+
+                break;
+
             case ChaosEffectType.Object:
-                if(effect.effectObject==null)
+                if (effect.effectObject == null)
+                {
                     Debug.LogWarning("Empty object. Invalid effect");
-                return; 
-        }
+                return;
+                }
+                break;
+    }
 
         if (isEffectActive) EndCurrentEffect();
         
@@ -195,7 +195,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         {
             buttonPressesRemaining = effect.buttonPressesToEnd;
             currentEffectRemainingSteps = -1;
-            Debug.Log($"Applied {effect.effectName}! Press TBD button {buttonPressesRemaining} times to end.");
+            Debug.Log($"Applied {effect.effectName}! Press EffectAction button {buttonPressesRemaining} times to end.");
         }
         else
         {
@@ -212,6 +212,8 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     {
         if (!isEffectActive) return;
 
+        if(curEffect.triggerCustomEvent) curEffect.onEnd.Invoke();
+        
         switch (curEffect.Type)
         {
             case ChaosEffectType.Material:
@@ -225,14 +227,12 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
                 break;
         }
         
-        if(curEffect.triggerCustomEvent) curEffect.onEnd.Invoke();
-        
         curEffect = null;
         isEffectActive = false;
         currentEffectRemainingSteps = 0;
         buttonPressesRemaining = 0;
         
-        int nextEffectSteps = Random.Range(baseStepsRange.x, baseStepsRange.y + 1);
+        int nextEffectSteps = Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1);
         stepsUntilNextEffect = GetStepsInTicks(nextEffectSteps);
         
         Debug.Log($"Ended effect. Next effect in {nextEffectSteps} steps ({stepsUntilNextEffect} ticks).");
@@ -260,7 +260,6 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         if(active) InitializeEffectSystem();
         else StopEffectSystem();
         
-        Debug.Log($"Chaos Effect System {(active ? "enabled" : "disabled")}.");
     }
     
     public string GetCurrentEffectInfo()
