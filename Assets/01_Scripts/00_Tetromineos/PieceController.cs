@@ -84,10 +84,8 @@ public class PieceController : MonoBehaviour
     public void ChangeSpeed()
     {
         if (DificultyManager.current != null)
-        {
             curTicksToStep = DificultyManager.current.CurrentTicksToStep;
-            Debug.Log($"Piece speed updated to {curTicksToStep} ticks per step");
-        }
+            
     }
 
 
@@ -121,10 +119,13 @@ public class PieceController : MonoBehaviour
 
     private void SetNewPosition()
     {
+        if (NewPosition == Position) return;
         if (Board.IsValidPiecePosition(Cells, NewPosition))
         {
             Position.y = NewPosition.y;
             Position.x = GetWrapedXPosition(NewPosition.x);
+            SFXManager.current.TriggerMoveSound();
+            NewPosition = Position;
         }
         else
         {
@@ -207,6 +208,7 @@ public class PieceController : MonoBehaviour
             for (int i = 0; i < newRotation.Length; i++)
             {
                 Cells[i] = newRotation[i];
+                SFXManager.current.TriggerRotateSound();
             }
         }
 
@@ -237,10 +239,15 @@ public class PieceController : MonoBehaviour
     {
         curTick = 0;
         DropPiece();
+
+        if (NewPosition == Position) return;
+        
         if (Board.IsValidPiecePosition(Cells, NewPosition))
         {
             Position.y = NewPosition.y;
             Position.x = GetWrapedXPosition(NewPosition.x);
+            SFXManager.current.TriggerMoveSound();
+            NewPosition = Position;
         }
         else
         {
@@ -265,12 +272,13 @@ public class PieceController : MonoBehaviour
             StoredPiece = Data;
             Board.SpawnPiece(Position,tempData);
         }
-        
+        SFXManager.current.TriggerHoldSound();
         GameUIManager.current.UpdateHoldedPiece(StoredPiece);
     }
 
     void LockPiece()
     {
+        SFXManager.current.TriggerLockSound();
         Board.SetPiece(this);
         Board.ClearLines();
         Board.SpawnPiece();

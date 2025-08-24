@@ -56,17 +56,13 @@ public class DificultyManager : SingletonManager<DificultyManager>
     {
         currentLevel++;
         
-        // Reduce ticks to step (increase speed)
         int newTicksToStep = startingTicksToStep - (currentLevel * ticksReductionPerLevel);
         currentTicksToStep = Mathf.Max(minimumTicksToStep, newTicksToStep);
         
-        // Update piece controller if using old method
         if (pieceController != null)
         {
             pieceController.ChangeSpeed();
         }
-        
-        Debug.Log($"Difficulty increased to level {currentLevel}! Ticks to step: {currentTicksToStep}");
     }
 
     public int GetLevel() { return currentLevel; }

@@ -83,8 +83,6 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         TetrisInputHandler.current.OnEffectAction += OnTBDPressed;
         
         stepsUntilNextEffect = GetStepsInTicks(Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1));
-        
-        Debug.Log($"ChaosEffectsManager initialized. Next effect in {stepsUntilNextEffect} ticks.");
     }
 
     private void StopEffectSystem()
@@ -125,20 +123,14 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             stepsUntilNextEffect--;
             
             if (stepsUntilNextEffect <= 0)
-            {
-                Debug.Log("Trigger effect");
                 TriggerRandomEffect();
-            }
+           
         }
     }
     
     private void TriggerRandomEffect()
     {
-        if (availableEffects.Count == 0)
-        {
-            Debug.LogWarning("No chaos effects available!");
-            return;
-        }
+        if (availableEffects.Count == 0) return;
         
         int randomIndex = Random.Range(0, availableEffects.Count);
         ChaosEffect selectedEffect = availableEffects[randomIndex];
@@ -149,29 +141,17 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
 
     public void ApplyEffect(ChaosEffect effect)
     {
-        if (effect == null)
-        {
-            Debug.LogWarning("Invalid effect");
-            return;
-        }
+        if (effect == null) return;
+        
 
         switch (effect.Type)
         {
             case ChaosEffectType.Material:
-                if (effect.effectMaterial == null)
-                {
-                    Debug.LogWarning("Empty material. Invalid effect");
-                    return;
-                }
-
+                if (effect.effectMaterial == null) return;
                 break;
 
             case ChaosEffectType.Object:
-                if (effect.effectObject == null)
-                {
-                    Debug.LogWarning("Empty object. Invalid effect");
-                return;
-                }
+                if (effect.effectObject == null) return;
                 break;
     }
 
@@ -197,14 +177,12 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         {
             buttonPressesRemaining = effect.buttonPressesToEnd;
             currentEffectRemainingSteps = -1;
-            Debug.Log($"Applied {effect.effectName}! Press EffectAction button {buttonPressesRemaining} times to end.");
         }
         else
         {
             int effectSteps = Random.Range(effect.durationRange.x, effect.durationRange.y + 1);
             currentEffectRemainingSteps = GetStepsInTicks(effectSteps);
             buttonPressesRemaining = 0;
-            Debug.Log($"Applied {effect.effectName} for {effectSteps} steps ({currentEffectRemainingSteps} ticks)!");
         }
         
         if(effect.triggerCustomEvent) effect.onStart.Invoke();
@@ -220,9 +198,8 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         {
             case ChaosEffectType.Material:
                 if (tilemapRenderer != null && defaultMaterial != null)
-                {
                     tilemapRenderer.sharedMaterial = defaultMaterial;
-                }
+                
                 break;
             case ChaosEffectType.Object:
                 curEffect.effectObject.SetActive(false);
@@ -237,7 +214,6 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         int nextEffectSteps = Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1);
         stepsUntilNextEffect = GetStepsInTicks(nextEffectSteps);
         
-        Debug.Log($"Ended effect. Next effect in {nextEffectSteps} steps ({stepsUntilNextEffect} ticks).");
     }
     
 
@@ -246,7 +222,6 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         if (!isEffectActive || curEffect == null || !curEffect.useButtonPresses) return;
         
         buttonPressesRemaining--;
-        Debug.Log($"TBD pressed! {buttonPressesRemaining} presses remaining to end {curEffect.effectName}.");
         
         if (buttonPressesRemaining <= 0)
         {
@@ -267,8 +242,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     
     public string GetCurrentEffectInfo()
     {
-        if (!isEffectActive || curEffect == null)
-            return "No effect active";
+        if (!isEffectActive || curEffect == null) return "No effect active";
         
         if (curEffect.useButtonPresses)
         {

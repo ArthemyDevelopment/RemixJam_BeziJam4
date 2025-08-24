@@ -110,20 +110,17 @@ public class TetrisMapBoard : MonoBehaviour
 
             if (!boundToCheck.Contains(positionToCheck))
             {
-                //Debug.Log("FAILED: Out of bounds");
                 return false;
             }
 
 
             if (Tilemap.HasTile((Vector3Int)positionToCheck))
             {
-                //Debug.Log("FAILED: Tile in position");
                 return false;
             }
             
 
         }
-        //Debug.Log("SUCCESS: Valid position");
         return true;
     }
 
@@ -147,6 +144,8 @@ public class TetrisMapBoard : MonoBehaviour
         }
 
         if (linesCleared == 0) return;
+        
+        SFXManager.current.TriggerLineSound(linesCleared);
         
         DificultyManager.current.CheckDificultIncrease(linesCleared);
         
