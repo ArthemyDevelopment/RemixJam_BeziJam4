@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 178114092}
   - component: {fileID: 178114091}
   m_Layer: 5
-  m_Name: TX_TimeLast
+  m_Name: TX_TimeSurvived
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time lasted:'
+  m_text: 'Time Survived:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a42cfcfd9df68f241b79b662f48ebbd8, type: 2}
   m_sharedMaterial: {fileID: -3119120804667889536, guid: a42cfcfd9df68f241b79b662f48ebbd8, type: 2}
@@ -3530,8 +3530,9 @@ MonoBehaviour:
   RotateSound: {fileID: 8300000, guid: 3a91b2ee7cc09f743aa02afbba939540, type: 3}
   HoldSound: {fileID: 8300000, guid: 6d041b6f31abe0e4abc0c72242c8ff23, type: 3}
   LineSound: {fileID: 8300000, guid: a0c6ef15fdd461442b7e166b334bab8f, type: 3}
-  MoveSound: {fileID: 8300000, guid: 4aa74aace0b6a1c4f9cb04e2f5d5d6f9, type: 3}
+  MoveSound: {fileID: 8300000, guid: 66ee825fddecf56429ff364077f6490c, type: 3}
   RepeatClearedLinesDelay: 0.15
+  canPlaySFX: 1
 --- !u!1 &1131496303
 GameObject:
   m_ObjectHideFlags: 0
