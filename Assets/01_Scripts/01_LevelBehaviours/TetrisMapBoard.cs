@@ -20,8 +20,9 @@ public class TetrisMapBoard : MonoBehaviour
     
     public TetrominoData[] Tetrominoes;
 
-    private int _indexToSpawn;
-    private TetrominoData _pieceToSpawn;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int indexToSpawn;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData pieceToSpawn;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData queuedPiece;
     public RectInt Bounds{
         get
         {
@@ -45,17 +46,38 @@ public class TetrisMapBoard : MonoBehaviour
 
         if (ForcedPiece.TetrominoType== Tetromino.Null)
         {
-            _indexToSpawn = Random.Range(0, Tetrominoes.Length);
-            _pieceToSpawn = Tetrominoes[_indexToSpawn];
+            pieceToSpawn = GetNewPiece();
         }
-        else _pieceToSpawn = ForcedPiece;
+        else pieceToSpawn = ForcedPiece;
         
-        if(pos==null)pieceController.Init(SpawnPos, _pieceToSpawn);
-        else pieceController.Init(pos.Value, _pieceToSpawn);
+        if(pos==null)pieceController.Init(SpawnPos, pieceToSpawn);
+        else pieceController.Init(pos.Value, pieceToSpawn);
         
-        if(IsValidPiecePosition(pieceController, SpawnPos)) SetPiece(pieceController);
+        if(IsValidPiecePosition(pieceController.Cells, SpawnPos)) SetPiece(pieceController);
         else GameOver();
     }
+
+    private TetrominoData GetNewPiece()
+    {
+        if (queuedPiece.TetrominoType != Tetromino.Null)
+        {
+            TetrominoData tempPiece = queuedPiece;
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            queuedPiece = Tetrominoes[indexToSpawn];
+            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            return tempPiece;
+        }
+        else
+        {
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            TetrominoData tempPiece = Tetrominoes[indexToSpawn];
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            queuedPiece = Tetrominoes[indexToSpawn];
+            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            return tempPiece;
+        }
+    }
+    
 
     public void SetPiece(PieceController piece)
     {
@@ -77,13 +99,13 @@ public class TetrisMapBoard : MonoBehaviour
         }
     }
 
-    public bool IsValidPiecePosition(PieceController piece, Vector2Int position)
+    public bool IsValidPiecePosition(Vector2Int[] cells, Vector2Int position)
     {
         RectInt boundToCheck = Bounds;
         
-        for (int i = 0; i < piece.Cells.Length; i++)
+        for (int i = 0; i < cells.Length; i++)
         {
-            Vector2Int positionToCheck = piece.Cells[i] + position;
+            Vector2Int positionToCheck = cells[i] + position;
             positionToCheck.x = ScriptsTools.WrapInt(positionToCheck.x, BOARD_X_BOUND_NEGATIVE,BOARD_X_BOUND_POSITIVE);
 
             if (!boundToCheck.Contains(positionToCheck))
@@ -198,6 +220,7 @@ public class TetrisMapBoard : MonoBehaviour
 
     private void GameOver()
     {
+        pieceController.SetInputs(false);
         GameOverManager.current.SetGameOver();
     }
     

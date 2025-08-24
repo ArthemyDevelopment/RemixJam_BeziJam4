@@ -146,6 +146,24 @@ namespace ArthemyDev.ScriptsTools
             else return min + (input - min) % (max - min);
         }
         
+        public static string FormatTime(int totalSeconds)
+        {
+            int minutes = Mathf.FloorToInt(totalSeconds / 60f);
+            int seconds = Mathf.FloorToInt(totalSeconds % 60f);
+            return string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        /// <summary>
+        /// Get formatted time string with milliseconds (MM:SS.mmm)
+        /// </summary>
+        public static string FormatTimeWithMilliseconds(int totalSeconds)
+        {
+            int minutes = Mathf.FloorToInt(totalSeconds / 60f);
+            int seconds = Mathf.FloorToInt(totalSeconds % 60f);
+            int milliseconds = Mathf.FloorToInt((totalSeconds * 1000f) % 1000f);
+            return string.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, milliseconds);
+        }
+        
 #if UNITY_EDITOR
         //Get all instances of a scriptableObject in the project, useful when setting up databases
         public static T[] GetAllInstances<T>() where T : ScriptableObject

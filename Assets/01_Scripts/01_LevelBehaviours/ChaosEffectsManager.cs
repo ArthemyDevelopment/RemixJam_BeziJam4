@@ -68,6 +68,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int buttonPressesRemaining;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isEffectActive = false;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isSystemActive = true;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int cursesSurvived;
     
     
     private void Start()
@@ -114,6 +115,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             
             if (currentEffectRemainingSteps <= 0)
             {
+                cursesSurvived++;
                 EndCurrentEffect();
             }
         }
@@ -248,6 +250,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         
         if (buttonPressesRemaining <= 0)
         {
+            cursesSurvived++;
             EndCurrentEffect();
         }
     }
@@ -276,6 +279,8 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             return $"{curEffect.effectName}: {currentEffectRemainingSteps} ticks remaining";
         }
     }
+    
+    public int GetCurses(){ return cursesSurvived;}
     
     #if UNITY_EDITOR
     

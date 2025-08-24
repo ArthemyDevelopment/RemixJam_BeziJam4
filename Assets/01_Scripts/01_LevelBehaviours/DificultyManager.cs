@@ -27,6 +27,8 @@ public class DificultyManager : SingletonManager<DificultyManager>
     
     [FoldoutGroup("DEBUG")]
     [ReadOnly] [SerializeField] private int currentLevel = 0;
+    [FoldoutGroup("DEBUG")]
+    [ReadOnly] [SerializeField] private int totalLines = 0;
 
     // Public property to access current ticks to step
     public int CurrentTicksToStep => currentTicksToStep;
@@ -40,6 +42,7 @@ public class DificultyManager : SingletonManager<DificultyManager>
     public void CheckDificultIncrease(int linesCleared)
     {
         curLineCheck += linesCleared;
+        totalLines += linesCleared;
 
         if (curLineCheck >= LinesToIncreaseDificutly)
         {
@@ -65,8 +68,11 @@ public class DificultyManager : SingletonManager<DificultyManager>
         
         Debug.Log($"Difficulty increased to level {currentLevel}! Ticks to step: {currentTicksToStep}");
     }
-    
-    #if UNITY_EDITOR
+
+    public int GetLevel() { return currentLevel; }
+    public int GetLines() { return totalLines; }
+
+#if UNITY_EDITOR
     
     #region DEBUG
     

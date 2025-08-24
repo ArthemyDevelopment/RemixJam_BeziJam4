@@ -2,30 +2,29 @@ using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : SingletonManager<GameOverManager>
 {
-    [BoxGroup("References")]public PieceController pieceController;
-    [BoxGroup("References")]public TetrisMapBoard board;
-    [BoxGroup("References")]public GameObject GameOverCanvas;
-    [BoxGroup("References")]public GameObject FirstSelectedButton;
 
-
-    protected override void Awake()
+    public void RestartGame()
     {
-        base.Awake();
-        GameOverCanvas.SetActive(false);
+        SceneManager.LoadScene((int)GameScenes.GameScene);
     }
 
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene((int)GameScenes.MainMenu);
+    }
+    
     
     [BoxGroup("DEBUG"), Button("Trigger Game Over")]
     public void SetGameOver()
     {
         GameTickManager.current.StopGameTicks();
-        //PieceController.
         ChaosEffectsManager.current.SetSystemActive(false);
-        GameOverCanvas.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(FirstSelectedButton);
+        GameTimerManager.current.SetTimer(false);
+        GameUIManager.current.SetGameOverUI();
     }
     
     

@@ -35,23 +35,37 @@ public class PieceController : MonoBehaviour
             curTicksToStep = 20;
         }
         
-        TetrisInputHandler.current.OnMove+=MovePiece;
-        TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
-        TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
-        TetrisInputHandler.current.OnRotate+=RotatePiece;
-        TetrisInputHandler.current.OnHoldPiece += HoldPiece;
-        GameTickManager.current.OnGameTick += UpdateTicks;
+        SetInputs(true);
     }
 
     private void OnDestroy()
     {
-        TetrisInputHandler.current.OnMove-=MovePiece;
-        TetrisInputHandler.current.OnInitSoftDrop-=InitSoftDrop;
-        TetrisInputHandler.current.OnEndSoftDrop-=StopSoftDrop;
-        TetrisInputHandler.current.OnRotate-=RotatePiece;
-        TetrisInputHandler.current.OnHoldPiece -= HoldPiece;
-        GameTickManager.current.OnGameTick -= UpdateTicks;
+        SetInputs(false);
     }
+
+    public void SetInputs(bool status)
+    {
+        switch (status)
+        {
+            case true:
+                TetrisInputHandler.current.OnMove+=MovePiece;
+                TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
+                TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
+                TetrisInputHandler.current.OnRotate+=RotatePiece;
+                TetrisInputHandler.current.OnHoldPiece += HoldPiece;
+                GameTickManager.current.OnGameTick += UpdateTicks;
+                break;
+            case false:
+                TetrisInputHandler.current.OnMove-=MovePiece;
+                TetrisInputHandler.current.OnInitSoftDrop-=InitSoftDrop;
+                TetrisInputHandler.current.OnEndSoftDrop-=StopSoftDrop;
+                TetrisInputHandler.current.OnRotate-=RotatePiece;
+                TetrisInputHandler.current.OnHoldPiece -= HoldPiece;
+                GameTickManager.current.OnGameTick -= UpdateTicks;
+                break;
+        }
+    }
+    
 
     public void Init(Vector2Int pos, TetrominoData data)
     {
@@ -107,7 +121,7 @@ public class PieceController : MonoBehaviour
 
     private void SetNewPosition()
     {
-        if (Board.IsValidPiecePosition(this, NewPosition))
+        if (Board.IsValidPiecePosition(Cells, NewPosition))
         {
             Position.y = NewPosition.y;
             Position.x = GetWrapedXPosition(NewPosition.x);
@@ -158,7 +172,8 @@ public class PieceController : MonoBehaviour
     private void ApplyRotationMatrix(int direction)
     {
         float[] matrix = TetrominoesGridData.RotationMatrix;
-        
+
+        Vector2Int[] newRotation = new Vector2Int[Cells.Length];
         for (int i = 0; i < Cells.Length; i++)
         {
             Vector2 cell = Cells[i];
@@ -184,8 +199,17 @@ public class PieceController : MonoBehaviour
             }
 
             x = GetWrapedXPosition(x);
-            Cells[i] = new Vector2Int(x, y);
+            newRotation [i] = new Vector2Int(x, y); 
         }
+
+        if (Board.IsValidPiecePosition(newRotation, Position))
+        {
+            for (int i = 0; i < newRotation.Length; i++)
+            {
+                Cells[i] = newRotation[i];
+            }
+        }
+
     }
 
 
@@ -213,7 +237,7 @@ public class PieceController : MonoBehaviour
     {
         curTick = 0;
         DropPiece();
-        if (Board.IsValidPiecePosition(this, NewPosition))
+        if (Board.IsValidPiecePosition(Cells, NewPosition))
         {
             Position.y = NewPosition.y;
             Position.x = GetWrapedXPosition(NewPosition.x);
@@ -242,7 +266,7 @@ public class PieceController : MonoBehaviour
             Board.SpawnPiece(Position,tempData);
         }
         
-        //TODO:Set in UI the stored Piece
+        GameUIManager.current.UpdateHoldedPiece(StoredPiece);
     }
 
     void LockPiece()
