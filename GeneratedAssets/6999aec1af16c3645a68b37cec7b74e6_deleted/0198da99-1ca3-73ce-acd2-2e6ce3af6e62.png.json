@@ -1,0 +1,29 @@
+{
+    "asset": "6999aec1af16c3645a68b37cec7b74e6",
+    "fileName": "0198da99-1ca3-73ce-acd2-2e6ce3af6e62.png",
+    "prompt": "Take the Image Reference and create a version with the fingers closed.\nThe style and design in the hand must be exactly the same as the image reference.",
+    "negativePrompt": "Background",
+    "model": "f2a35032-8dc5-4e61-9df1-309542d7c053",
+    "modelName": "Tarot Cards",
+    "customSeed": -1,
+    "w3CTraceId": "d6e35dfa66aed8d44417d423e362ff47",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": [
+            {
+                "doodleReferenceType": 7,
+                "doodle": [],
+                "label": "Image",
+                "strength": 0.25,
+                "invertStrength": false,
+                "assetReferenceGuid": "1d9310a1e0a80494cb4ca75b1f48eda3"
+            }
+        ]
+    },
+    "upscaleFactor": 0
+}

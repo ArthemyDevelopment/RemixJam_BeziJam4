@@ -1,17 +1,19 @@
 using System.Collections;
 using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SFXManager : SingletonManager<SFXManager>
 {
 
-    [BoxGroup("References"), SerializeField] private AudioSource SfxSource;
-    [BoxGroup("References"), SerializeField] private AudioClip LockSound;
-    [BoxGroup("References"), SerializeField] private AudioClip RotateSound;
-    [BoxGroup("References"), SerializeField] private AudioClip HoldSound;
-    [BoxGroup("References"), SerializeField] private AudioClip LineSound;
-    [BoxGroup("References"), SerializeField] private AudioClip MoveSound;
+    [BoxGroup("References"), SerializeField] private AudioSource VoiceSource;
+    [BoxGroup("References"), SerializeField] private AudioSource LockSound;
+    [BoxGroup("References"), SerializeField] private AudioSource RotateSound;
+    [BoxGroup("References"), SerializeField] private AudioSource HoldSound;
+    [BoxGroup("References"), SerializeField] private AudioSource LineSound;
+    [BoxGroup("References"), SerializeField] private AudioSource MoveSound;
+    
 
     [BoxGroup("Sfx Settings"), SerializeField] private float RepeatClearedLinesDelay;
 
@@ -21,34 +23,37 @@ public class SFXManager : SingletonManager<SFXManager>
     public void TriggerLockSound()
     {
         if (!canPlaySFX) return;
-        SfxSource.clip = LockSound;
-        SfxSource.Play();
+        LockSound.Play();
     }
 
     public void TriggerRotateSound()
     {
         if (!canPlaySFX) return;
-        SfxSource.clip = RotateSound;
-        SfxSource.Play();
+        RotateSound.Play();
     }
 
     public void TriggerHoldSound()
     {
         if (!canPlaySFX) return;
-        SfxSource.clip = HoldSound;
-        SfxSource.Play();
+        HoldSound.Play();
     }
     public void TriggerMoveSound()
     {
         if (!canPlaySFX) return;
-        SfxSource.clip = MoveSound;
-        SfxSource.Play();
+        MoveSound.Play();
     }
 
     public void TriggerLineSound(int clearedLines)
     {
-        SfxSource.clip = LineSound;
         StartCoroutine(TriggerLineCoroutine(clearedLines));
+    }
+
+    public void TriggerEffectVoice(AudioClip voice)
+    {
+        VoiceSource.Stop();
+        VoiceSource.clip = voice;
+        VoiceSource.Play();
+        
     }
 
 
@@ -57,11 +62,16 @@ public class SFXManager : SingletonManager<SFXManager>
         canPlaySFX = false;
         for (int i = 0; i < clearedLines; i++)
         {
-            SfxSource.Play();
+            LineSound.Play();
             yield return ScriptsTools.GetWait(RepeatClearedLinesDelay);
         }
 
-        yield return ScriptsTools.GetWait(SfxSource.clip.length);
+        StartCoroutine(ResumeSFX(LineSound.clip.length));
+    }
+
+    IEnumerator ResumeSFX(float time)
+    {
+        yield return ScriptsTools.GetWait(time);
         canPlaySFX = true;
     }
 }

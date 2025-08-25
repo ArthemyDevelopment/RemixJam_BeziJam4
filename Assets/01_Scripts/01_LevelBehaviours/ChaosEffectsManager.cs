@@ -20,6 +20,8 @@ public class ChaosEffect
     [BoxGroup("Effect Settings")] public string effectName;
 
     [BoxGroup("Effect Settings")] public ChaosEffectType Type;
+
+    [BoxGroup("Effect Settings")] public AudioClip VoiceSFX;
     
     [BoxGroup("Effect Settings"), ShowIf("@Type==ChaosEffectType.Material")]
     public Material effectMaterial;
@@ -49,17 +51,11 @@ public class ChaosEffect
 
 public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
 {
-    [FoldoutGroup("References")]
-    [SerializeField] private TilemapRenderer tilemapRenderer;
-    
-    [FoldoutGroup("Effect Configuration")]
-    [SerializeField] private Vector2Int ActiveEffectStepsRange = new Vector2Int(3, 8);
-    
-    [FoldoutGroup("Effect Configuration")]
-    [SerializeField] private Material defaultMaterial;
-    
-    [FoldoutGroup("Available Effects")]
-    [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true)]
+    [FoldoutGroup("References")] [SerializeField] private TilemapRenderer tilemapRenderer;
+    [FoldoutGroup("References")] [SerializeField] private Animator DemonHand;
+    [FoldoutGroup("Effect Configuration"),SerializeField] private Vector2Int ActiveEffectStepsRange = new Vector2Int(3, 8);
+    [FoldoutGroup("Effect Configuration"),SerializeField] private Material defaultMaterial;
+    [FoldoutGroup("Available Effects"),ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true)]
     [SerializeField] private List<ChaosEffect> availableEffects = new List<ChaosEffect>();
     
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private ChaosEffect curEffect;
@@ -67,6 +63,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int currentEffectRemainingSteps;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int buttonPressesRemaining;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isEffectActive = false;
+    [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool EffectOnQueue = false;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private bool isSystemActive = true;
     [FoldoutGroup("DEBUG"), ReadOnly, SerializeField] private int cursesSurvived;
     
@@ -80,7 +77,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void InitializeEffectSystem()
     {
         GameTickManager.current.OnGameTick += OnGameTick;
-        TetrisInputHandler.current.OnEffectAction += OnTBDPressed;
+        TetrisInputHandler.current.OnEffectAction += OnEffectActionPressed;
         
         stepsUntilNextEffect = GetStepsInTicks(Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1));
     }
@@ -88,8 +85,9 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void StopEffectSystem()
     {
         GameTickManager.current.OnGameTick -= OnGameTick;
-        TetrisInputHandler.current.OnEffectAction -= OnTBDPressed;
-        if(isEffectActive)EndCurrentEffect();
+        TetrisInputHandler.current.OnEffectAction -= OnEffectActionPressed;
+        EffectOnQueue = false;
+        if (isEffectActive) EndCurrentEffect();
     }
     
 
@@ -118,7 +116,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             }
         }
         
-        if (!isEffectActive)
+        if (!isEffectActive && !EffectOnQueue)
         {
             stepsUntilNextEffect--;
             
@@ -135,11 +133,11 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         int randomIndex = Random.Range(0, availableEffects.Count);
         ChaosEffect selectedEffect = availableEffects[randomIndex];
         
-        ApplyEffect(selectedEffect);
+        StartEffect(selectedEffect);
     }
     
 
-    public void ApplyEffect(ChaosEffect effect)
+    public void StartEffect(ChaosEffect effect)
     {
         if (effect == null) return;
         
@@ -153,39 +151,51 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
             case ChaosEffectType.Object:
                 if (effect.effectObject == null) return;
                 break;
-    }
+        }
 
         if (isEffectActive) EndCurrentEffect();
         
         curEffect = effect;
+        EffectOnQueue = true;
+        SFXManager.current.TriggerEffectVoice(curEffect.VoiceSFX);
+        DemonHand.Play("SpawnEffect");
+        
+    }
+
+    public void ApplyEffect()
+    {
+        if (!EffectOnQueue) return;
+
+        EffectOnQueue = false;
         isEffectActive = true;
         
-        switch (effect.Type)
+        switch (curEffect.Type)
         {
             case ChaosEffectType.Material:
                 if (tilemapRenderer != null)
                 {
-                    tilemapRenderer.sharedMaterial = effect.effectMaterial;
+                    tilemapRenderer.sharedMaterial = curEffect.effectMaterial;
                 }
                 break;
             case ChaosEffectType.Object:
-                effect.effectObject.SetActive(true);
+                curEffect.effectObject.SetActive(true);
                 break;
         }
         
-        if (effect.useButtonPresses)
+        if (curEffect.useButtonPresses)
         {
-            buttonPressesRemaining = effect.buttonPressesToEnd;
+            buttonPressesRemaining = curEffect.buttonPressesToEnd;
             currentEffectRemainingSteps = -1;
         }
         else
         {
-            int effectSteps = Random.Range(effect.durationRange.x, effect.durationRange.y + 1);
+            int effectSteps = Random.Range(curEffect.durationRange.x, curEffect.durationRange.y + 1);
             currentEffectRemainingSteps = GetStepsInTicks(effectSteps);
             buttonPressesRemaining = 0;
         }
         
-        if(effect.triggerCustomEvent) effect.onStart.Invoke();
+        if(curEffect.triggerCustomEvent) curEffect.onStart.Invoke();
+        
     }
     
     public void EndCurrentEffect()
@@ -217,7 +227,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     }
     
 
-    private void OnTBDPressed()
+    private void OnEffectActionPressed()
     {
         if (!isEffectActive || curEffect == null || !curEffect.useButtonPresses) return;
         
@@ -267,7 +277,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
         
         if (effect != null)
         {
-            ApplyEffect(effect);
+            StartEffect(effect);
         }
         else
         {

@@ -1,0 +1,20 @@
+{
+    "asset": "6999aec1af16c3645a68b37cec7b74e6",
+    "fileName": "0198da83-d889-77ca-9914-02f9f2db7a8e.png",
+    "prompt": "A devilish or demonicish hand in claw position looking diagonal to the bottom left side and a small portion of the wrist.",
+    "negativePrompt": "",
+    "model": "242b56c1-2224-41c4-8949-2ba760bbfc69",
+    "modelName": "16-bit Pixel",
+    "customSeed": -1,
+    "w3CTraceId": "222693edd0c0de14804c274b1cd4535a",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

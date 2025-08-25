@@ -260,20 +260,26 @@ public class PieceController : MonoBehaviour
     {
         if (IsPlayerInputLocked) return;
         
-        Board.ClearPiece(this);
         if (StoredPiece.TetrominoType == Tetromino.Null)
         {
+            Board.ClearPiece(this);
             StoredPiece = Data;
             Board.SpawnPiece(Position);
+            SFXManager.current.TriggerHoldSound();
+            GameUIManager.current.UpdateHoldedPiece(StoredPiece);
+            return;
         }
-        else
+        
+        TetrominoData tempData = StoredPiece;
+        Board.ClearPiece(this);
+        if (Board.IsValidPiecePosition(tempData.cells, Position))
         {
-            TetrominoData tempData = StoredPiece;
             StoredPiece = Data;
-            Board.SpawnPiece(Position,tempData);
+            Board.SpawnPiece(Position, tempData);
+            SFXManager.current.TriggerHoldSound();
+            GameUIManager.current.UpdateHoldedPiece(StoredPiece);
         }
-        SFXManager.current.TriggerHoldSound();
-        GameUIManager.current.UpdateHoldedPiece(StoredPiece);
+        else Board.SetPiece(this);
     }
 
     void LockPiece()

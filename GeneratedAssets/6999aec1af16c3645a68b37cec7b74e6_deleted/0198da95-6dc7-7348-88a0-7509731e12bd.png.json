@@ -1,0 +1,20 @@
+{
+    "asset": "6999aec1af16c3645a68b37cec7b74e6",
+    "fileName": "0198da95-6dc7-7348-88a0-7509731e12bd.png",
+    "prompt": "A demonic red hand in claw position with the palm looking diagonal to the bottom left side and a small portion of the wrist.",
+    "negativePrompt": "Background",
+    "model": "f2a35032-8dc5-4e61-9df1-309542d7c053",
+    "modelName": "Tarot Cards",
+    "customSeed": -1,
+    "w3CTraceId": "a423c1d142a18e09e88d0f99f98cf600",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

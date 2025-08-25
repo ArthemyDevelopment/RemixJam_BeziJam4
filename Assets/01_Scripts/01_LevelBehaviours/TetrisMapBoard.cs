@@ -110,12 +110,15 @@ public class TetrisMapBoard : MonoBehaviour
 
             if (!boundToCheck.Contains(positionToCheck))
             {
+                //Debug.Log("Out of bounds: "+ positionToCheck.ToString());
+                
                 return false;
             }
 
 
             if (Tilemap.HasTile((Vector3Int)positionToCheck))
             {
+                //Debug.Log("Tile ocupied: "+ positionToCheck);
                 return false;
             }
             
