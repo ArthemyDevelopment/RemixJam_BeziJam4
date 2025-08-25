@@ -1,0 +1,249 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using ArthemyDev.ScriptsTools;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
+
+public class TetrisMapBoard : MonoBehaviour
+{
+    public const int BOARD_X_BOUND_NEGATIVE= -5;
+    public const int BOARD_X_BOUND_POSITIVE= 5;
+    
+    [FoldoutGroup("References")]public Tilemap Tilemap;
+    [FoldoutGroup("References")]public PieceController pieceController;
+    
+    [FoldoutGroup("Values")]public Vector2Int SpawnPos;
+    [FoldoutGroup("Values")]public Vector2Int MapBoardSize = new Vector2Int(10,20);
+    
+    public TetrominoData[] Tetrominoes;
+
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int indexToSpawn;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData pieceToSpawn;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData queuedPiece;
+    public RectInt Bounds{
+        get
+        {
+            Vector2Int position = new Vector2Int(-MapBoardSize.x / 2, -MapBoardSize.y / 2);
+            return new RectInt(position, MapBoardSize);
+
+        }}
+
+    private void Awake()
+    {
+        if (Tilemap == null) Tilemap = GetComponentInChildren<Tilemap>();
+    }
+
+    private void Start()
+    {
+        SpawnPiece();
+    }
+
+    public void SpawnPiece(Vector2Int? pos = null,TetrominoData ForcedPiece= new TetrominoData())
+    {
+
+        if (ForcedPiece.TetrominoType== Tetromino.Null)
+        {
+            pieceToSpawn = GetNewPiece();
+        }
+        else pieceToSpawn = ForcedPiece;
+        
+        if(pos==null)pieceController.Init(SpawnPos, pieceToSpawn);
+        else pieceController.Init(pos.Value, pieceToSpawn);
+        
+        if(IsValidPiecePosition(pieceController.Cells, SpawnPos)) SetPiece(pieceController);
+        else GameOver();
+    }
+
+    private TetrominoData GetNewPiece()
+    {
+        if (queuedPiece.TetrominoType != Tetromino.Null)
+        {
+            TetrominoData tempPiece = queuedPiece;
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            queuedPiece = Tetrominoes[indexToSpawn];
+            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            return tempPiece;
+        }
+        else
+        {
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            TetrominoData tempPiece = Tetrominoes[indexToSpawn];
+            indexToSpawn = Random.Range(0, Tetrominoes.Length);
+            queuedPiece = Tetrominoes[indexToSpawn];
+            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            return tempPiece;
+        }
+    }
+    
+
+    public void SetPiece(PieceController piece)
+    {
+        for (int i = 0; i < piece.Cells.Length; i++)
+        {
+            Vector2Int tilePosition = piece.Cells[i]+piece.Position;
+            tilePosition.x = ScriptsTools.WrapInt(tilePosition.x, BOARD_X_BOUND_NEGATIVE, BOARD_X_BOUND_POSITIVE);
+            Tilemap.SetTile((Vector3Int)tilePosition, piece.Data.tile);
+        }
+    }
+    
+    public void ClearPiece(PieceController piece)
+    {
+        for (int i = 0; i < piece.Cells.Length; i++)
+        {
+            Vector2Int tilePosition = piece.Cells[i]+piece.Position;
+            tilePosition.x = ScriptsTools.WrapInt(tilePosition.x, BOARD_X_BOUND_NEGATIVE, BOARD_X_BOUND_POSITIVE);
+            Tilemap.SetTile((Vector3Int)tilePosition, null);
+        }
+    }
+
+    public bool IsValidPiecePosition(Vector2Int[] cells, Vector2Int position)
+    {
+        RectInt boundToCheck = Bounds;
+        
+        for (int i = 0; i < cells.Length; i++)
+        {
+            Vector2Int positionToCheck = cells[i] + position;
+            positionToCheck.x = ScriptsTools.WrapInt(positionToCheck.x, BOARD_X_BOUND_NEGATIVE,BOARD_X_BOUND_POSITIVE);
+
+            if (!boundToCheck.Contains(positionToCheck))
+            {
+                //Debug.Log("Out of bounds: "+ positionToCheck.ToString());
+                
+                return false;
+            }
+
+
+            if (Tilemap.HasTile((Vector3Int)positionToCheck))
+            {
+                //Debug.Log("Tile ocupied: "+ positionToCheck);
+                return false;
+            }
+            
+
+        }
+        return true;
+    }
+
+    
+    public void ClearLines() 
+    {
+        RectInt bounds = Bounds;
+        int gridHeight = bounds.height; 
+        
+        Span<bool> fullLines = stackalloc bool[gridHeight];
+        int linesCleared = 0;
+        
+        for (int row = bounds.yMin; row < bounds.yMax; row++)
+        {
+            if (IsLineFull(row))
+            {
+                int relativeRow = row - bounds.yMin;
+                fullLines[relativeRow] = true;
+                linesCleared++;
+            }
+        }
+
+        if (linesCleared == 0) return;
+        
+        SFXManager.current.TriggerLineSound(linesCleared);
+        
+        DificultyManager.current.CheckDificultIncrease(linesCleared);
+        
+        int writeRow = bounds.yMin;
+        
+        
+        for (int readRow = bounds.yMin; readRow < bounds.yMax; readRow++)
+        {
+            int relativeReadRow = readRow - bounds.yMin;
+            
+            if (!fullLines[relativeReadRow])
+            {
+                if (writeRow != readRow)
+                {
+                    MoveRowBatch(readRow, writeRow);
+                }
+                writeRow++;
+            }
+        }
+        for (int row = writeRow; row < bounds.yMax; row++) 
+        {
+            ClearLine(row);
+        }
+    }
+    
+    private bool IsLineFull(int row)
+    {
+        RectInt bounds = Bounds;
+        
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int pos = new Vector3Int(col, row, 0);
+            if (!Tilemap.HasTile(pos)) return false;
+        }
+
+        return true;
+    }
+
+    private void ClearLine(int row)
+    {
+        RectInt bounds = Bounds;
+        
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int pos = new Vector3Int(col, row, 0);
+            Tilemap.SetTile(pos, null);
+        }
+    }
+
+    private void MoveRowBatch(int fromRow, int toRow)
+    {
+        RectInt bounds = Bounds;
+        int gridWidth = bounds.width;
+        Vector3Int[] sourcePositions = new Vector3Int[gridWidth];
+        Vector3Int[] targetPositions = new Vector3Int[gridWidth];
+        TileBase[] tiles = new TileBase[gridWidth];
+        
+        int index = 0;
+        for (int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            sourcePositions[index] = new Vector3Int(col, fromRow, 0);
+            targetPositions[index] = new Vector3Int(col, toRow, 0);
+            tiles[index] = Tilemap.GetTile(sourcePositions[index]);
+            index++;
+        }
+        
+        Tilemap.SetTiles(sourcePositions, new TileBase[gridWidth]); 
+        Tilemap.SetTiles(targetPositions, tiles); 
+    }
+
+
+    private void GameOver()
+    {
+        pieceController.SetInputs(false);
+        GameOverManager.current.SetGameOver();
+    }
+    
+    #if UNITY_EDITOR
+
+    #region DEBUG
+
+    [FoldoutGroup("DEBUG")][Button]
+    public void DEBUG_InitTetrominoesData()
+    {
+        for (int i = 0; i < Tetrominoes.Length; i++)
+        {
+            Tetrominoes[i].Init();
+        }
+    }
+
+    #endregion
+    
+    
+    
+    
+    #endif
+}
+

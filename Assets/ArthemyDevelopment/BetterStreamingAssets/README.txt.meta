@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4b19540ab01ef2445883708726c69bae
+timeCreated: 1512873914
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191021
+  packageName: Simple&Easy Localization Tool
+  packageVersion: 1.4
+  assetPath: Assets/ArthemyDevelopment/BetterStreamingAssets/README.txt
+  uploadId: 771115
