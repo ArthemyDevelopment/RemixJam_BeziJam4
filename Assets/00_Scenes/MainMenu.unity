@@ -987,7 +987,7 @@ MonoBehaviour:
 
 
     Most effects don''t require aditional actions with the
-    expection of two'
+    exception of two ->'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a42cfcfd9df68f241b79b662f48ebbd8, type: 2}
   m_sharedMaterial: {fileID: -3119120804667889536, guid: a42cfcfd9df68f241b79b662f48ebbd8, type: 2}
