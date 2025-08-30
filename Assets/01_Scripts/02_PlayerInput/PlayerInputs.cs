@@ -351,6 +351,376 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""Multiplayer_Player1"",
+            ""id"": ""810c1a69-2bfb-454d-9c96-0f04be05cc38"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""2ee6f2e8-52a6-46be-ac24-04b39ebbf68f"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SoftDrop"",
+                    ""type"": ""Button"",
+                    ""id"": ""62edbc3e-cdc9-4934-ac3c-013cf340f428"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldPiece"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6fb8b58-72d3-4076-b12b-31e5a532a88f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""7022d9fb-cd90-492d-ba86-544507b23b13"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EffectAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6da99e2-1371-48e9-8aa9-72c9a9f7175d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""65d0b0ad-d5d9-41f5-815e-904f29a0ec6f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;Keyboard&Mouse"",
+                    ""action"": ""SoftDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffc7849b-ee69-4342-b21b-c6d1ff57707c"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""SoftDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33866b26-dba3-4e3d-bd0a-5a7261f40c54"",
+                    ""path"": ""<Gamepad>/dpad/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""AD Axis"",
+                    ""id"": ""4ecb928c-27e5-429e-8cb9-7f01b1c98ebc"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""13d299ec-7b8a-46b6-8469-2c382be9e692"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a1e41328-bab6-4fca-aef7-876e3bef85a9"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ed3dd5cf-9577-4a77-aec4-374324ebf102"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""HoldPiece"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fff43a7b-fc45-4e21-bf52-843fbf770098"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""HoldPiece"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32579d6b-1582-4f0c-833a-f032133bee02"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1678c345-a763-4308-8d1b-e31c3aa74b09"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00fd7c0e-5261-4198-af5a-94a8b0ec6904"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""EffectAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c1dd26f-6937-4e12-b4b2-da0ece8fa799"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""EffectAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Multiplayer_Player2"",
+            ""id"": ""49266dca-f39a-42bc-8c44-75dd43559598"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""047d8432-caf5-44a6-9cff-185bbad3931f"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SoftDrop"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ae55126-3cad-427d-b8a4-54d2adb2f341"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HoldPiece"",
+                    ""type"": ""Button"",
+                    ""id"": ""9988e837-7d17-4554-adbe-54d7e6fc596c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f0f8049-3c75-41f9-8d15-9eae159c5da4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EffectAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""9044b448-a96d-44f0-94d7-12057e5eafd6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""09dace5a-cd5c-426c-8a0d-6341b5020108"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;Keyboard&Mouse"",
+                    ""action"": ""SoftDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4eadbcd-1639-47b2-b9e6-15d8a5cd0d9c"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""SoftDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7079360a-03fc-4728-adb8-0f3832d0bba4"",
+                    ""path"": ""<Gamepad>/dpad/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrows Axis"",
+                    ""id"": ""50787e76-a0b4-49c1-832f-d455df731f42"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2da5260a-e3b3-478b-b784-c2386255f8df"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""279b09d8-5212-4f72-a058-0eafca48c312"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2521da64-0166-4a48-aa8c-5f273314a8ae"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""HoldPiece"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0d16632-015e-49b1-8bf6-69cf194b632b"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""HoldPiece"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82ac86a2-e83d-460a-9f90-adc0087a0202"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79091a41-267b-40f5-a42f-9315e09362df"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16fe31be-5630-4ed4-849a-42ef1afc4609"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""EffectAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""541d8e8e-6eef-45ea-bbbf-d2a0db4f21a3"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad"",
+                    ""action"": ""EffectAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""UI"",
             ""id"": ""272f6d14-89ba-496f-b7ff-215263d3219f"",
             ""actions"": [
@@ -981,6 +1351,20 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player_HoldPiece = m_Player.FindAction("HoldPiece", throwIfNotFound: true);
         m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
         m_Player_EffectAction = m_Player.FindAction("EffectAction", throwIfNotFound: true);
+        // Multiplayer_Player1
+        m_Multiplayer_Player1 = asset.FindActionMap("Multiplayer_Player1", throwIfNotFound: true);
+        m_Multiplayer_Player1_Move = m_Multiplayer_Player1.FindAction("Move", throwIfNotFound: true);
+        m_Multiplayer_Player1_SoftDrop = m_Multiplayer_Player1.FindAction("SoftDrop", throwIfNotFound: true);
+        m_Multiplayer_Player1_HoldPiece = m_Multiplayer_Player1.FindAction("HoldPiece", throwIfNotFound: true);
+        m_Multiplayer_Player1_Rotate = m_Multiplayer_Player1.FindAction("Rotate", throwIfNotFound: true);
+        m_Multiplayer_Player1_EffectAction = m_Multiplayer_Player1.FindAction("EffectAction", throwIfNotFound: true);
+        // Multiplayer_Player2
+        m_Multiplayer_Player2 = asset.FindActionMap("Multiplayer_Player2", throwIfNotFound: true);
+        m_Multiplayer_Player2_Move = m_Multiplayer_Player2.FindAction("Move", throwIfNotFound: true);
+        m_Multiplayer_Player2_SoftDrop = m_Multiplayer_Player2.FindAction("SoftDrop", throwIfNotFound: true);
+        m_Multiplayer_Player2_HoldPiece = m_Multiplayer_Player2.FindAction("HoldPiece", throwIfNotFound: true);
+        m_Multiplayer_Player2_Rotate = m_Multiplayer_Player2.FindAction("Rotate", throwIfNotFound: true);
+        m_Multiplayer_Player2_EffectAction = m_Multiplayer_Player2.FindAction("EffectAction", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -998,6 +1382,8 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     ~@PlayerInputs()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputs.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Multiplayer_Player1.enabled, "This will cause a leak and performance issues, PlayerInputs.Multiplayer_Player1.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Multiplayer_Player2.enabled, "This will cause a leak and performance issues, PlayerInputs.Multiplayer_Player2.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputs.UI.Disable() has not been called.");
     }
 
@@ -1210,6 +1596,286 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Multiplayer_Player1
+    private readonly InputActionMap m_Multiplayer_Player1;
+    private List<IMultiplayer_Player1Actions> m_Multiplayer_Player1ActionsCallbackInterfaces = new List<IMultiplayer_Player1Actions>();
+    private readonly InputAction m_Multiplayer_Player1_Move;
+    private readonly InputAction m_Multiplayer_Player1_SoftDrop;
+    private readonly InputAction m_Multiplayer_Player1_HoldPiece;
+    private readonly InputAction m_Multiplayer_Player1_Rotate;
+    private readonly InputAction m_Multiplayer_Player1_EffectAction;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Multiplayer_Player1".
+    /// </summary>
+    public struct Multiplayer_Player1Actions
+    {
+        private @PlayerInputs m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public Multiplayer_Player1Actions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player1/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_Multiplayer_Player1_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player1/SoftDrop".
+        /// </summary>
+        public InputAction @SoftDrop => m_Wrapper.m_Multiplayer_Player1_SoftDrop;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player1/HoldPiece".
+        /// </summary>
+        public InputAction @HoldPiece => m_Wrapper.m_Multiplayer_Player1_HoldPiece;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player1/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Multiplayer_Player1_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player1/EffectAction".
+        /// </summary>
+        public InputAction @EffectAction => m_Wrapper.m_Multiplayer_Player1_EffectAction;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Multiplayer_Player1; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="Multiplayer_Player1Actions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(Multiplayer_Player1Actions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player1Actions" />
+        public void AddCallbacks(IMultiplayer_Player1Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_Multiplayer_Player1ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Multiplayer_Player1ActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @SoftDrop.started += instance.OnSoftDrop;
+            @SoftDrop.performed += instance.OnSoftDrop;
+            @SoftDrop.canceled += instance.OnSoftDrop;
+            @HoldPiece.started += instance.OnHoldPiece;
+            @HoldPiece.performed += instance.OnHoldPiece;
+            @HoldPiece.canceled += instance.OnHoldPiece;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @EffectAction.started += instance.OnEffectAction;
+            @EffectAction.performed += instance.OnEffectAction;
+            @EffectAction.canceled += instance.OnEffectAction;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player1Actions" />
+        private void UnregisterCallbacks(IMultiplayer_Player1Actions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @SoftDrop.started -= instance.OnSoftDrop;
+            @SoftDrop.performed -= instance.OnSoftDrop;
+            @SoftDrop.canceled -= instance.OnSoftDrop;
+            @HoldPiece.started -= instance.OnHoldPiece;
+            @HoldPiece.performed -= instance.OnHoldPiece;
+            @HoldPiece.canceled -= instance.OnHoldPiece;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @EffectAction.started -= instance.OnEffectAction;
+            @EffectAction.performed -= instance.OnEffectAction;
+            @EffectAction.canceled -= instance.OnEffectAction;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="Multiplayer_Player1Actions.UnregisterCallbacks(IMultiplayer_Player1Actions)" />.
+        /// </summary>
+        /// <seealso cref="Multiplayer_Player1Actions.UnregisterCallbacks(IMultiplayer_Player1Actions)" />
+        public void RemoveCallbacks(IMultiplayer_Player1Actions instance)
+        {
+            if (m_Wrapper.m_Multiplayer_Player1ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player1Actions.AddCallbacks(IMultiplayer_Player1Actions)" />
+        /// <seealso cref="Multiplayer_Player1Actions.RemoveCallbacks(IMultiplayer_Player1Actions)" />
+        /// <seealso cref="Multiplayer_Player1Actions.UnregisterCallbacks(IMultiplayer_Player1Actions)" />
+        public void SetCallbacks(IMultiplayer_Player1Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_Multiplayer_Player1ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Multiplayer_Player1ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="Multiplayer_Player1Actions" /> instance referencing this action map.
+    /// </summary>
+    public Multiplayer_Player1Actions @Multiplayer_Player1 => new Multiplayer_Player1Actions(this);
+
+    // Multiplayer_Player2
+    private readonly InputActionMap m_Multiplayer_Player2;
+    private List<IMultiplayer_Player2Actions> m_Multiplayer_Player2ActionsCallbackInterfaces = new List<IMultiplayer_Player2Actions>();
+    private readonly InputAction m_Multiplayer_Player2_Move;
+    private readonly InputAction m_Multiplayer_Player2_SoftDrop;
+    private readonly InputAction m_Multiplayer_Player2_HoldPiece;
+    private readonly InputAction m_Multiplayer_Player2_Rotate;
+    private readonly InputAction m_Multiplayer_Player2_EffectAction;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Multiplayer_Player2".
+    /// </summary>
+    public struct Multiplayer_Player2Actions
+    {
+        private @PlayerInputs m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public Multiplayer_Player2Actions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player2/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_Multiplayer_Player2_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player2/SoftDrop".
+        /// </summary>
+        public InputAction @SoftDrop => m_Wrapper.m_Multiplayer_Player2_SoftDrop;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player2/HoldPiece".
+        /// </summary>
+        public InputAction @HoldPiece => m_Wrapper.m_Multiplayer_Player2_HoldPiece;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player2/Rotate".
+        /// </summary>
+        public InputAction @Rotate => m_Wrapper.m_Multiplayer_Player2_Rotate;
+        /// <summary>
+        /// Provides access to the underlying input action "Multiplayer_Player2/EffectAction".
+        /// </summary>
+        public InputAction @EffectAction => m_Wrapper.m_Multiplayer_Player2_EffectAction;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Multiplayer_Player2; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="Multiplayer_Player2Actions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(Multiplayer_Player2Actions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player2Actions" />
+        public void AddCallbacks(IMultiplayer_Player2Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_Multiplayer_Player2ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Multiplayer_Player2ActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @SoftDrop.started += instance.OnSoftDrop;
+            @SoftDrop.performed += instance.OnSoftDrop;
+            @SoftDrop.canceled += instance.OnSoftDrop;
+            @HoldPiece.started += instance.OnHoldPiece;
+            @HoldPiece.performed += instance.OnHoldPiece;
+            @HoldPiece.canceled += instance.OnHoldPiece;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+            @EffectAction.started += instance.OnEffectAction;
+            @EffectAction.performed += instance.OnEffectAction;
+            @EffectAction.canceled += instance.OnEffectAction;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player2Actions" />
+        private void UnregisterCallbacks(IMultiplayer_Player2Actions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @SoftDrop.started -= instance.OnSoftDrop;
+            @SoftDrop.performed -= instance.OnSoftDrop;
+            @SoftDrop.canceled -= instance.OnSoftDrop;
+            @HoldPiece.started -= instance.OnHoldPiece;
+            @HoldPiece.performed -= instance.OnHoldPiece;
+            @HoldPiece.canceled -= instance.OnHoldPiece;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+            @EffectAction.started -= instance.OnEffectAction;
+            @EffectAction.performed -= instance.OnEffectAction;
+            @EffectAction.canceled -= instance.OnEffectAction;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="Multiplayer_Player2Actions.UnregisterCallbacks(IMultiplayer_Player2Actions)" />.
+        /// </summary>
+        /// <seealso cref="Multiplayer_Player2Actions.UnregisterCallbacks(IMultiplayer_Player2Actions)" />
+        public void RemoveCallbacks(IMultiplayer_Player2Actions instance)
+        {
+            if (m_Wrapper.m_Multiplayer_Player2ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="Multiplayer_Player2Actions.AddCallbacks(IMultiplayer_Player2Actions)" />
+        /// <seealso cref="Multiplayer_Player2Actions.RemoveCallbacks(IMultiplayer_Player2Actions)" />
+        /// <seealso cref="Multiplayer_Player2Actions.UnregisterCallbacks(IMultiplayer_Player2Actions)" />
+        public void SetCallbacks(IMultiplayer_Player2Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_Multiplayer_Player2ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Multiplayer_Player2ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="Multiplayer_Player2Actions" /> instance referencing this action map.
+    /// </summary>
+    public Multiplayer_Player2Actions @Multiplayer_Player2 => new Multiplayer_Player2Actions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1476,6 +2142,92 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
     /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
     public interface IPlayerActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SoftDrop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSoftDrop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HoldPiece" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHoldPiece(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EffectAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEffectAction(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Multiplayer_Player1" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="Multiplayer_Player1Actions.AddCallbacks(IMultiplayer_Player1Actions)" />
+    /// <seealso cref="Multiplayer_Player1Actions.RemoveCallbacks(IMultiplayer_Player1Actions)" />
+    public interface IMultiplayer_Player1Actions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SoftDrop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSoftDrop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HoldPiece" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHoldPiece(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotate(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EffectAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEffectAction(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Multiplayer_Player2" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="Multiplayer_Player2Actions.AddCallbacks(IMultiplayer_Player2Actions)" />
+    /// <seealso cref="Multiplayer_Player2Actions.RemoveCallbacks(IMultiplayer_Player2Actions)" />
+    public interface IMultiplayer_Player2Actions
     {
         /// <summary>
         /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

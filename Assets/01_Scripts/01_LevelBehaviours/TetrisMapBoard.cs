@@ -14,19 +14,25 @@ public class TetrisMapBoard : MonoBehaviour
     
     [FoldoutGroup("References")]public Tilemap Tilemap;
     [FoldoutGroup("References")]public PieceController pieceController;
+    [FoldoutGroup("References")]public GameUIController PlayerUI;
     
     [FoldoutGroup("Values")]public Vector2Int SpawnPos;
     [FoldoutGroup("Values")]public Vector2Int MapBoardSize = new Vector2Int(10,20);
+    [FoldoutGroup("Values")] public Vector2Int BoardOffset;
     
     public TetrominoData[] Tetrominoes;
 
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int indexToSpawn;
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData pieceToSpawn;
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrominoData queuedPiece;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private bool isBoardActive;
+
+    public bool IsBoardActive => isBoardActive;
+
     public RectInt Bounds{
         get
         {
-            Vector2Int position = new Vector2Int(-MapBoardSize.x / 2, -MapBoardSize.y / 2);
+            Vector2Int position = new Vector2Int((-MapBoardSize.x + BoardOffset.x) / 2, (-MapBoardSize.y+ BoardOffset.y) / 2);
             return new RectInt(position, MapBoardSize);
 
         }}
@@ -36,14 +42,14 @@ public class TetrisMapBoard : MonoBehaviour
         if (Tilemap == null) Tilemap = GetComponentInChildren<Tilemap>();
     }
 
-    private void Start()
+    public void StartBoard()
     {
+        isBoardActive = true;
         SpawnPiece();
     }
 
     public void SpawnPiece(Vector2Int? pos = null,TetrominoData ForcedPiece= new TetrominoData())
     {
-
         if (ForcedPiece.TetrominoType== Tetromino.Null)
         {
             pieceToSpawn = GetNewPiece();
@@ -64,7 +70,7 @@ public class TetrisMapBoard : MonoBehaviour
             TetrominoData tempPiece = queuedPiece;
             indexToSpawn = Random.Range(0, Tetrominoes.Length);
             queuedPiece = Tetrominoes[indexToSpawn];
-            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            PlayerUI.UpdateNextPiece(queuedPiece);
             return tempPiece;
         }
         else
@@ -73,7 +79,7 @@ public class TetrisMapBoard : MonoBehaviour
             TetrominoData tempPiece = Tetrominoes[indexToSpawn];
             indexToSpawn = Random.Range(0, Tetrominoes.Length);
             queuedPiece = Tetrominoes[indexToSpawn];
-            GameUIManager.current.UpdateNextPiece(queuedPiece);
+            PlayerUI.UpdateNextPiece(queuedPiece);
             return tempPiece;
         }
     }

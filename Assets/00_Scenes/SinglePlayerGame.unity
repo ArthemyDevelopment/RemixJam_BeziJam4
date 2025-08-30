@@ -692,6 +692,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116862951}
   m_CullTransparentMesh: 1
+--- !u!1 &119173348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119173350}
+  - component: {fileID: 119173349}
+  m_Layer: 0
+  m_Name: FreezeEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &119173349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119173348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476b314ce674eed4a869a089c037a56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreezeEffectController
+  targetPlayer: {fileID: 1952303170}
+  TimesToPress: 6
+  OnEventActive:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1952303170}
+        m_TargetAssemblyTypeName: PieceController, Assembly-CSharp
+        m_MethodName: LockPlayerInput
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnEventFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1952303170}
+        m_TargetAssemblyTypeName: PieceController, Assembly-CSharp
+        m_MethodName: LockPlayerInput
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cleanMaterial: {fileID: 0}
+  tilemapRenderer: {fileID: 0}
+--- !u!4 &119173350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119173348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178114089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1269,72 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &339499621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339499624}
+  - component: {fileID: 339499623}
+  - component: {fileID: 339499622}
+  m_Layer: 0
+  m_Name: InputSetUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &339499622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339499621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c15a7b27ef8a54abaa952d7cff3a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TetrisInputHandler
+  moveRepeatDelay: 0.3
+  moveRepeatRate: 0.1
+  lastMoveInput: 0
+  moveTimer: 0
+  isMoving: 0
+  isSoftDropping: 0
+--- !u!114 &339499623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339499621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb93449460338b4ea962812318d98b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SinglePlayerGameSetUp
+  inputHandler: {fileID: 339499622}
+  playerController: {fileID: 1952303170}
+  boardController: {fileID: 1952303169}
+--- !u!4 &339499624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339499621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360068623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,8 +1497,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1116404729}
-        m_TargetAssemblyTypeName: GameOverManager, Assembly-CSharp
+      - m_Target: {fileID: 1116404732}
+        m_TargetAssemblyTypeName: SinglePlayerGameOverUIManager, Assembly-CSharp
         m_MethodName: GoToMainMenu
         m_Mode: 1
         m_Arguments:
@@ -3162,8 +3306,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1116404729}
-        m_TargetAssemblyTypeName: GameOverManager, Assembly-CSharp
+      - m_Target: {fileID: 1116404732}
+        m_TargetAssemblyTypeName: SinglePlayerGameOverUIManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -3368,13 +3512,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1116404725}
-  - component: {fileID: 1116404724}
   - component: {fileID: 1116404726}
   - component: {fileID: 1116404727}
   - component: {fileID: 1116404728}
-  - component: {fileID: 1116404729}
   - component: {fileID: 1116404730}
   - component: {fileID: 1116404731}
+  - component: {fileID: 1116404732}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3382,51 +3525,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1116404724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116404723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c15a7b27ef8a54abaa952d7cff3a28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TetrisInputHandler
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: OnMove
-      Entry: 6
-      Data: 
-    - Name: OnRotate
-      Entry: 6
-      Data: 
-    - Name: OnInitSoftDrop
-      Entry: 6
-      Data: 
-    - Name: OnEndSoftDrop
-      Entry: 6
-      Data: 
-    - Name: OnHoldPiece
-      Entry: 6
-      Data: 
-    - Name: OnEffectAction
-      Entry: 6
-      Data: 
-  moveRepeatDelay: 0.3
-  moveRepeatRate: 0.1
-  lastMoveInput: 0
-  moveTimer: 0
-  isMoving: 0
-  isSoftDropping: 0
 --- !u!4 &1116404725
 Transform:
   m_ObjectHideFlags: 0
@@ -3495,7 +3593,7 @@ MonoBehaviour:
   LinesToIncreaseDificutly: 5
   pieceController: {fileID: 1952303170}
   startingTicksToStep: 20
-  minimumTicksToStep: 3
+  minimumTicksToStep: 2
   ticksReductionPerLevel: 1
   curLineCheck: 0
   currentTicksToStep: 0
@@ -3533,7 +3631,7 @@ MonoBehaviour:
     effectMaterial: {fileID: 2100000, guid: 0ca73519f18c43d4c813c5f90f95545a, type: 2}
     effectObject: {fileID: 0}
     useButtonPresses: 0
-    durationRange: {x: 20, y: 30}
+    durationRange: {x: 25, y: 35}
     buttonPressesToEnd: 3
     triggerCustomEvent: 0
     onStart:
@@ -3549,7 +3647,7 @@ MonoBehaviour:
     effectMaterial: {fileID: 2100000, guid: 5533cedea99a3dc4dbbf34ed4c7dc121, type: 2}
     effectObject: {fileID: 0}
     useButtonPresses: 0
-    durationRange: {x: 15, y: 25}
+    durationRange: {x: 25, y: 35}
     buttonPressesToEnd: 3
     triggerCustomEvent: 0
     onStart:
@@ -3580,32 +3678,17 @@ MonoBehaviour:
     VoiceSFX: {fileID: 8300000, guid: 7f1d6ae5c72642d4dbb1a01c98a1ef92, type: 3}
     effectMaterial: {fileID: 2100000, guid: 97d732aeabb497945b27ee9f9fd02c21, type: 2}
     effectObject: {fileID: 0}
-    useButtonPresses: 1
-    durationRange: {x: 5, y: 15}
+    useButtonPresses: 0
+    durationRange: {x: 5, y: 5}
     buttonPressesToEnd: 6
     triggerCustomEvent: 1
     onStart:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1952303170}
-          m_TargetAssemblyTypeName: PieceController, Assembly-CSharp
-          m_MethodName: LockPlayerInput
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    onEnd:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1952303170}
-          m_TargetAssemblyTypeName: PieceController, Assembly-CSharp
-          m_MethodName: LockPlayerInput
-          m_Mode: 6
+        - m_Target: {fileID: 119173349}
+          m_TargetAssemblyTypeName: FreezeEffectController, Assembly-CSharp
+          m_MethodName: SetEvent
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3614,6 +3697,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    onEnd:
+      m_PersistentCalls:
+        m_Calls: []
     description: Freezing effect that requires button presses to clear.
   - effectName: Grey Scale
     Type: 0
@@ -3736,27 +3822,6 @@ MonoBehaviour:
   EffectOnQueue: 0
   isSystemActive: 1
   cursesSurvived: 0
---- !u!114 &1116404729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116404723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d56b911c9641014c90fd60f7654283b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
 --- !u!114 &1116404730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3809,6 +3874,36 @@ MonoBehaviour:
   MoveSound: {fileID: 1681088513}
   RepeatClearedLinesDelay: 0.15
   canPlaySFX: 1
+--- !u!114 &1116404732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116404723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065f29145db158049884d48ee3a9bc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SinglePlayerGameOverUIManager
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  OnGameOver:
+    m_PersistentCalls:
+      m_Calls: []
+  GameOverCanvas: {fileID: 569723796}
+  GameOverLevel: {fileID: 929886942}
+  GameOverLines: {fileID: 1788666743}
+  GameOverCurses: {fileID: 2098147842}
+  GameOverTime: {fileID: 993209877}
+  FirstSelectedButton: {fileID: 1017410929}
 --- !u!1 &1122516475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4394,26 +4489,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1698ce3c06cd3ed4d8b484aa29c0e81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUIManager
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   LevelDisplay: {fileID: 1147437402}
   LinesDisplay: {fileID: 66916098}
   CursesDisplay: {fileID: 1425131939}
   TimeDisplay: {fileID: 2027202757}
   UITilemap: {fileID: 1196883859}
-  GameOverCanvas: {fileID: 569723796}
-  GameOverLevel: {fileID: 929886942}
-  GameOverLines: {fileID: 1788666743}
-  GameOverCurses: {fileID: 2098147842}
-  GameOverTime: {fileID: 993209877}
-  FirstSelectedButton: {fileID: 1017410929}
   HoldedPiecesPosition: {x: -4, y: 11}
   NextPiecePosition: {x: 2, y: 11}
   PrevHoldedPieceCells: []
@@ -4630,7 +4710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c7119c99224d943837c32bb27a5088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUG_Inputs
-  inputHandler: {fileID: 1116404724}
+  inputHandler: {fileID: 0}
 --- !u!4 &1263351436
 Transform:
   m_ObjectHideFlags: 0
@@ -4663,7 +4743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1372567405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4676,6 +4756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f6d5e819c03fb4ab69668bd35325fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlindEffectController
+  targetPlayer: {fileID: 1952303170}
   BlindEffectSprite: {fileID: 1372567406}
   StartingFade: 0.6
   AmmountToReduce: 0.15
@@ -6787,7 +6868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1930419925
 Transform:
   m_ObjectHideFlags: 0
@@ -6991,8 +7072,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TetrisMapBoard
   Tilemap: {fileID: 69679402}
   pieceController: {fileID: 1952303170}
+  PlayerUI: {fileID: 1182644841}
   SpawnPos: {x: -1, y: 8}
   MapBoardSize: {x: 10, y: 20}
+  BoardOffset: {x: 0, y: 0}
   Tetrominoes:
   - TetrominoType: 1
     tile: {fileID: 11400000, guid: e737eb8d8ea3f6143b96d2cd0d2a0d3d, type: 2}
@@ -7052,6 +7135,7 @@ MonoBehaviour:
     TetrominoType: 0
     tile: {fileID: 0}
     cells: []
+  isBoardActive: 0
 --- !u!114 &1952303170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7083,6 +7167,10 @@ MonoBehaviour:
   rotationQueued: 0
   curTicksToStep: 0
   curTick: 0
+  curInputHandler: {fileID: 0}
+  externalSetups:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1954287103
 GameObject:
   m_ObjectHideFlags: 0
@@ -7910,7 +7998,9 @@ SceneRoots:
   - {fileID: 1952303168}
   - {fileID: 1930419925}
   - {fileID: 1372567407}
+  - {fileID: 119173350}
   - {fileID: 1263351436}
   - {fileID: 537127495}
   - {fileID: 1122516479}
   - {fileID: 1112440416}
+  - {fileID: 339499624}

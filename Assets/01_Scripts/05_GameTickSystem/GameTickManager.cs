@@ -4,6 +4,8 @@ using ArthemyDev.ScriptsTools;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+
+[DefaultExecutionOrder(-5)]
 public class GameTickManager : SingletonManager<GameTickManager>
 {
     [BoxGroup("GameTicks Values")]public bool GameIsPlaying=true;

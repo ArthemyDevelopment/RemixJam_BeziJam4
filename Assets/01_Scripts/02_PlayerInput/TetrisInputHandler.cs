@@ -6,12 +6,12 @@ using ArthemyDev.ScriptsTools;
 
 
 [DefaultExecutionOrder(-1)]
-public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
+public class TetrisInputHandler : MonoBehaviour
 {
     [FoldoutGroup("Repeat input values")][SerializeField] private float moveRepeatDelay = 0.3f;
     [FoldoutGroup("Repeat input values")][SerializeField] private float moveRepeatRate = 0.1f;
     
-    private PlayerInputs inputActions;
+    protected PlayerInputs inputActions;
     [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private float lastMoveInput;
     [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private float moveTimer;
     [FoldoutGroup("DEBUG"),SerializeField, ReadOnly]private bool isMoving;
@@ -28,13 +28,12 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
     [HideInInspector]public InputButtonAction OnEndSoftDrop;
     [HideInInspector]public InputButtonAction OnHoldPiece;
     [HideInInspector]public InputButtonAction OnEffectAction;
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         inputActions = new PlayerInputs();
     }
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         inputActions.Enable();
         inputActions.Player.Move.performed += OnMovePerformed;
@@ -46,7 +45,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         inputActions.Player.EffectAction.performed += OnEffectActionPerformed;
     }
     
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         inputActions.Disable();
         inputActions.Player.Move.performed -= OnMovePerformed;
@@ -84,7 +83,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
     
     
     
-    private void OnMovePerformed(InputAction.CallbackContext context)
+    protected void OnMovePerformed(InputAction.CallbackContext context)
     {
         float moveInput = context.ReadValue<float>();
 
@@ -100,13 +99,13 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         moveTimer = 0f;
     }
     
-    private void OnMoveCanceled(InputAction.CallbackContext context)
+    protected void OnMoveCanceled(InputAction.CallbackContext context)
     {
         isMoving = false;
         moveTimer = 0f;
     }
     
-    private void OnSoftDropPerformed(InputAction.CallbackContext context)
+    protected void OnSoftDropPerformed(InputAction.CallbackContext context)
     {
         if (!isSoftDropping)
         {
@@ -115,7 +114,7 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         }
     }
     
-    private void OnSoftDropCanceled(InputAction.CallbackContext context)
+    protected void OnSoftDropCanceled(InputAction.CallbackContext context)
     {
         if (isSoftDropping)
         {
@@ -124,17 +123,17 @@ public class TetrisInputHandler : SingletonManager<TetrisInputHandler>
         }
     }
     
-    private void OnHoldPiecePerformed(InputAction.CallbackContext context)
+    protected void OnHoldPiecePerformed(InputAction.CallbackContext context)
     {
         OnHoldPiece?.Invoke();
     }
     
-    private void OnRotatePerformed(InputAction.CallbackContext context)
+    protected void OnRotatePerformed(InputAction.CallbackContext context)
     {
         OnRotate?.Invoke();
     }
     
-    private void OnEffectActionPerformed(InputAction.CallbackContext context)
+    protected void OnEffectActionPerformed(InputAction.CallbackContext context)
     {
         OnEffectAction?.Invoke();
     }

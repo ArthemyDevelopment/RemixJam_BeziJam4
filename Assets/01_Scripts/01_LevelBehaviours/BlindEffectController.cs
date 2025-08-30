@@ -2,7 +2,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class BlindEffectController : MonoBehaviour
+public class BlindEffectController : InputEffects
 {
 
     [BoxGroup("Effect Settings"),SerializeField] private SpriteRenderer BlindEffectSprite;
@@ -10,20 +10,24 @@ public class BlindEffectController : MonoBehaviour
     [BoxGroup("Effect Settings"),SerializeField] private float AmmountToReduce;
     [BoxGroup("DEBUG"), ReadOnly]private float curAlpha;
 
+    protected override void OnEffectActionPressed()
+    {
+        ReduceFade();
+    }
+
+
     public void SetEffect(bool state)
     {
         switch (state)
         {
             case true:
                 GameTickManager.current.OnGameTick += IncreaseFade;
-                TetrisInputHandler.current.OnEffectAction += ReduceFade;
                 GameTickManager.current.OnUiGameTick += SetSpriteColor;
                 curAlpha = StartingFade;
                 SetSpriteColor();
                 break;
             case false:
                 GameTickManager.current.OnGameTick -= IncreaseFade;
-                TetrisInputHandler.current.OnEffectAction -= ReduceFade;
                 GameTickManager.current.OnUiGameTick -= SetSpriteColor;
                 curAlpha = 0;
                 SetSpriteColor();

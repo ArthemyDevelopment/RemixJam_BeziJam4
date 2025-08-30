@@ -6,20 +6,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public class GameUIManager : SingletonManager<GameUIManager>
+public class GameUIController : MonoBehaviour
 {
     [FoldoutGroup("References Game UI"), SerializeField]private TMP_Text LevelDisplay;
     [FoldoutGroup("References Game UI"), SerializeField]private TMP_Text LinesDisplay;
     [FoldoutGroup("References Game UI"), SerializeField]private TMP_Text CursesDisplay;
     [FoldoutGroup("References Game UI"), SerializeField]private TMP_Text TimeDisplay;
     [FoldoutGroup("References Game UI"), SerializeField]private Tilemap UITilemap;
-
-    [FoldoutGroup("References Game Over UI"), SerializeField] private GameObject GameOverCanvas;
-    [FoldoutGroup("References Game Over UI"), SerializeField] private TMP_Text GameOverLevel;
-    [FoldoutGroup("References Game Over UI"), SerializeField] private TMP_Text GameOverLines;
-    [FoldoutGroup("References Game Over UI"), SerializeField] private TMP_Text GameOverCurses;
-    [FoldoutGroup("References Game Over UI"), SerializeField] private TMP_Text GameOverTime;
-    [FoldoutGroup("References Game Over UI"), SerializeField]public GameObject FirstSelectedButton;
+    
     
     [BoxGroup("Pieces UI"), SerializeField] private Vector2Int HoldedPiecesPosition;
     [BoxGroup("Pieces UI"), SerializeField] private Vector2Int NextPiecePosition;
@@ -30,7 +24,6 @@ public class GameUIManager : SingletonManager<GameUIManager>
 
     private void Start()
     {
-        GameOverCanvas.SetActive(false);
         GameTickManager.current.OnUiGameTick += UpdateGameUI;
     }
 
@@ -81,13 +74,5 @@ public class GameUIManager : SingletonManager<GameUIManager>
         }
     }
 
-    public void SetGameOverUI()
-    {
-        GameOverLevel.text = DificultyManager.current.GetLevel().ToString();
-        GameOverLines.text = DificultyManager.current.GetLines().ToString();
-        GameOverCurses.text = ChaosEffectsManager.current.GetCurses().ToString();
-        GameOverTime.text = ScriptsTools.FormatTime(GameTimerManager.current.GetSeconds());
-        GameOverCanvas.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(FirstSelectedButton);
-    }
+    
 }

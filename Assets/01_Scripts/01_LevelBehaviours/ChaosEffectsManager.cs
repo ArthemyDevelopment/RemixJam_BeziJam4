@@ -77,7 +77,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void InitializeEffectSystem()
     {
         GameTickManager.current.OnGameTick += OnGameTick;
-        TetrisInputHandler.current.OnEffectAction += OnEffectActionPressed;
+        //TetrisInputHandler.current.OnEffectAction += OnEffectActionPressed;
         
         stepsUntilNextEffect = GetStepsInTicks(Random.Range(ActiveEffectStepsRange.x, ActiveEffectStepsRange.y + 1));
     }
@@ -85,7 +85,7 @@ public class ChaosEffectsManager : SingletonManager<ChaosEffectsManager>
     private void StopEffectSystem()
     {
         GameTickManager.current.OnGameTick -= OnGameTick;
-        TetrisInputHandler.current.OnEffectAction -= OnEffectActionPressed;
+        //TetrisInputHandler.current.OnEffectAction -= OnEffectActionPressed;
         EffectOnQueue = false;
         if (isEffectActive) EndCurrentEffect();
     }

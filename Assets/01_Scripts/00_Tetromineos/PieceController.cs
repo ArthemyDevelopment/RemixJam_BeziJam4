@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Unity.AppUI.Redux;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
 
 public class PieceController : MonoBehaviour
 {
@@ -23,8 +24,20 @@ public class PieceController : MonoBehaviour
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private bool rotationQueued;
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int curTicksToStep;
     [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private int curTick;
+    [FoldoutGroup("DEBUG"), SerializeField, ReadOnly]private TetrisInputHandler curInputHandler;
 
-    private void Start()
+    [HideInInspector]public UnityEvent<bool> externalSetups;
+
+    public void SetUpPlayer(TetrisInputHandler newInputHandler)
+    {
+        curInputHandler = newInputHandler;
+        StartPlayer();
+    }
+    
+    public TetrisInputHandler GetCurInput(){ return curInputHandler;}
+    
+    
+    private void StartPlayer()
     {
         if (DificultyManager.current != null)
         {
@@ -48,22 +61,24 @@ public class PieceController : MonoBehaviour
         switch (status)
         {
             case true:
-                TetrisInputHandler.current.OnMove+=MovePiece;
-                TetrisInputHandler.current.OnInitSoftDrop+=InitSoftDrop;
-                TetrisInputHandler.current.OnEndSoftDrop+=StopSoftDrop;
-                TetrisInputHandler.current.OnRotate+=RotatePiece;
-                TetrisInputHandler.current.OnHoldPiece += HoldPiece;
+                curInputHandler.OnMove+=MovePiece;
+                curInputHandler.OnInitSoftDrop+=InitSoftDrop;
+                curInputHandler.OnEndSoftDrop+=StopSoftDrop;
+                curInputHandler.OnRotate+=RotatePiece;
+                curInputHandler.OnHoldPiece += HoldPiece;
                 GameTickManager.current.OnGameTick += UpdateTicks;
                 break;
             case false:
-                TetrisInputHandler.current.OnMove-=MovePiece;
-                TetrisInputHandler.current.OnInitSoftDrop-=InitSoftDrop;
-                TetrisInputHandler.current.OnEndSoftDrop-=StopSoftDrop;
-                TetrisInputHandler.current.OnRotate-=RotatePiece;
-                TetrisInputHandler.current.OnHoldPiece -= HoldPiece;
+                curInputHandler.OnMove-=MovePiece;
+                curInputHandler.OnInitSoftDrop-=InitSoftDrop;
+                curInputHandler.OnEndSoftDrop-=StopSoftDrop;
+                curInputHandler.OnRotate-=RotatePiece;
+                curInputHandler.OnHoldPiece -= HoldPiece;
                 GameTickManager.current.OnGameTick -= UpdateTicks;
                 break;
         }
+        
+        externalSetups.Invoke(status);
     }
     
 
@@ -266,7 +281,7 @@ public class PieceController : MonoBehaviour
             StoredPiece = Data;
             Board.SpawnPiece(Position);
             SFXManager.current.TriggerHoldSound();
-            GameUIManager.current.UpdateHoldedPiece(StoredPiece);
+            Board.PlayerUI.UpdateHoldedPiece(StoredPiece);
             return;
         }
         
@@ -277,7 +292,7 @@ public class PieceController : MonoBehaviour
             StoredPiece = Data;
             Board.SpawnPiece(Position, tempData);
             SFXManager.current.TriggerHoldSound();
-            GameUIManager.current.UpdateHoldedPiece(StoredPiece);
+            Board.PlayerUI.UpdateHoldedPiece(StoredPiece);
         }
         else Board.SetPiece(this);
     }

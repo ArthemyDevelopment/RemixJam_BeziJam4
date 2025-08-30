@@ -7,7 +7,7 @@ public class DEBUG_Inputs : MonoBehaviour
 
     private void OnEnable()
     {
-        if(inputHandler==null) inputHandler = TetrisInputHandler.current;
+        if(inputHandler==null) return;
         
         inputHandler.OnMove+=HandleMove;
         inputHandler.OnRotate+=HandleRotate;
@@ -19,6 +19,7 @@ public class DEBUG_Inputs : MonoBehaviour
 
     private void OnDisable()
     {
+        if(inputHandler==null) return;
         inputHandler.OnMove-=HandleMove;
         inputHandler.OnRotate-=HandleRotate;
         inputHandler.OnInitSoftDrop-=HandleInitSoftDrop;
